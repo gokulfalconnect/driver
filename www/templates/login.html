@@ -1,0 +1,39 @@
+
+	<ion-view view-title="Browse" hide-nav-bar="true" cache-view="false">
+	
+	 <ion-content overflow-scroll="true" scroll="false">
+	<div class="login-wrap" >
+		<div class="login-html">
+			<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+			 <div class="login-form">
+				<div class="sign-in-htm">
+					<form name="login_form" ng-submit="user_login1(logindata)">
+						<div class="group">
+						  <label for="user" class="label">Username</label>
+						  <input id="user" type="text" class="input" maxlength="20" ng-model="logindata.employeename">
+						</div>
+						<div class="group">
+						  <label for="pass" class="label">Mobile Number</label>
+						  <input  type="tel" class="input" maxlength="15"  ng-model="logindata.employeephone">
+						</div>
+						
+						<div class="group">
+						  <input type="submit" ng-click="user_login()" class="button" value="Sign In">
+						</div>
+					</form>
+					<div class="group">
+						 
+						 <button ion-button class="forget_button" style="float: right;" ng-click="open_forget_pwd()">Forget Password ?</button></br></br>
+						 
+						</div>
+					<div class="hr"></div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+   </ion-content>
+    </ion-nav-view>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<ion-view title="Order Details" hide-back-button="true">
+  <ion-content padding="true" class="has-header">
+    
+ 	
+	<div class="card">
+	
+		<div class="row">
+			<div class="col col-60">
+			<h4>Jacob Mathew</h4>
+				<p>Kings palace</br>
+				veliyanad,kidangara</br>
+				Alappuzha</p>
+			
+			</div>
+			<div class="col col-40">
+			<span>123456</span></br>
+			COD
+			
+			</div>
+	
+		</div>
+		<div class="row" >
+			<div class="col col-50" style="border:1px solid black">
+			 <i class="ion-ios-telephone ion_icons_header"></i> <a href="tel:123-456-7890">Call customer</a>
+			
+			</div>
+			<div class="col col-50" style="border:1px solid black" ui-sref="app.map">
+			<i class="ion-android-pin ion_icons_header"></i><span> View Map</span>
+			
+			</div>
+	
+		</div>
+	</div>
+	
+	
+	
+    <div class="card">
+	
+	<ion-list>
+      <ion-item><h2>Order Details</h2></ion-item>
+    </ion-list>
+	
+      <ion-item>Hyderabadi Biriyani
+        <span class="item-note">Rs.155.00</span>
+      </ion-item>
+      <ion-item>Pepper Barbecue
+        <span class="item-note">Rs.250.00</span>
+      </ion-item>
+      <ion-item>Chiken Tikka
+        <span class="item-note">Rs.250.00</span>
+      </ion-item>
+      <ion-item>Ice Cream
+        <span class="item-note">Rs.600.00</span>
+      </ion-item>
+      <ion-item class="item-icon-left dark">
+        <i class="icon ion-ionic"></i>Subtotal
+        <span class="item-note">Rs.1155.00</span>
+      </ion-item>
+    </div>
+    <div class="spacer" style="width: 300px; height: 8px;"></div>
+     <ion-item>Payment
+        <span class="item-note">Received</span>
+      </ion-item>
+	  
+	<ion-list>
+	   <ion-list>
+      <div class="spacer" style="width: 300px; height: 8px;"></div>
+     <ion-item ng-click="show_actionsheet()">Delivery Status
+        <span class="item-note" >{{delivery_status}}</span>
+      </ion-item>
+    </ion-list>
+      <ion-item class="item-avatar">
+        
+      
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

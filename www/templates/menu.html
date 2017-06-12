@@ -1,0 +1,62 @@
+<ion-side-menus enable-menu-with-back-views="true">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+	<!--	 <button class="button button-icon button-clear ion-home" ui-sref="app.home" ng-if="show_home=='1'"></button>-->
+      </ion-nav-buttons>
+	 <ion-nav-buttons side="right" >
+    <!--   <button class="button button-icon button-clear ion-android-arrow-dropleft" ng-click="goBack()" ng-if="back_show=='1'"></button>-->
+        
+		<div class = "header-icon-padding"  >
+   
+		<div>	<i class="ion-android-arrow-dropleft ion_icons_header" ng-click="goBack()" ng-if="back_show=='1'"></i></div>
+		</div>
+		
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    
+    <ion-content>
+      <ion-list>
+	    <div  ng-click="go_profile()" >
+			<div class="item item-avatar" style="padding-top:20px">
+				<img ng-src="img/profile.jpg">
+				<h2><span style="color: red">&nbsp;&nbsp;&nbsp;Nijo Joseph</h2></span>
+				<h3>&nbsp;&nbsp;&nbsp;9856543242</h3>
+			</div>
+    	</div> 
+		<div class="card">
+			
+			<ion-toggle  ng-model="driver.status" toggle-class="toggle-calm" ng-change ="change_toggle()" style="display:block;" id ="bf">{{driver.text}}</ion-toggle>
+		
+    	</div> 
+		
+        </ion-item>
+		<ion-item  menu-close ui-sref="app.home" class="item-icon-left" >
+        	<i class="icon ion-home"></i>
+          Dashboard
+        </ion-item>
+	<ion-item menu-close ui-sref="app.rank" class="item-icon-left">
+		<i class="icon ion-ios-star-outline"></i>
+          Ranking
+        </ion-item>
+		<ion-item  menu-close   class="item-icon-left" ui-sref="app.contact">
+        	<i class="icon ion-android-call"></i>
+          Contact Us
+        </ion-item>
+		<ion-item  menu-close   class="item-icon-left" ui-sref="app.notification">
+        	<i class="icon ion-android-bulb"></i>
+          Accept/reject
+        </ion-item>
+            </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

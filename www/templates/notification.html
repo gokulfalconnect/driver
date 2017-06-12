@@ -1,0 +1,18 @@
+<ion-view view-title="Notification">
+   <ion-content class="padding">
+    
+      <div ng-show="countDown>0">Your time left is {{countDown}} .</div>
+    </ion-content>
+</ion-view>
+<ion-footer-bar align-title="left" class="item-bg-color">
+<div class="row ">
+  
+  <div class="col col-50" align="center">
+    <span ng-click="reject_order()">Reject</span>
+  </div>
+  <div class="col col-50 " align="center">
+    <span ng-click="accept_order()" >Accept</span>
+  </div>
+</div>
+
+</ion-footer-bar>
