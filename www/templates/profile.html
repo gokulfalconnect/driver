@@ -12,13 +12,13 @@
 				 <div class="col item-bg-color">
  
   	<div class="col" style="padding-left:40%">
-  		<img ng-src="img/user.svg" style="border-radius: 50%; width: 80px; height: 80px;" >
+  		<img ng-src="{{profileinfo.imageurl}}" style="border-radius: 50%; width: 80px; height: 80px;" >
 	</div>
   
   	
 	<div class="row">
 		<div class="col " align="center">
-			<h3 class="white-font2">{{profileinfo.employee_name}}</h3>
+			<h3 class="white-font2">{{profileinfo.name}}</h3>
 		</div>
 	</div>
 
@@ -30,7 +30,7 @@
 		<!-- <h5 class="input-label h4-font">Name</h5> -->
 		<div class="row">
 			<div class="col col-80">
-				<h5>{{profileinfo.employee_name}}</h5>
+				<h5>{{profileinfo.name}}</h5>
 			</div>
 			<div class="col col-20 icon-padding1" align="right">
 				<img src="img/user.svg" width="30" height="30">

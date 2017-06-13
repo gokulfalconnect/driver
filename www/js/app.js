@@ -81,7 +81,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
   })
   .state('app.view_order', {
 	   cache: false,
-    url: '/view_order',
+    url: '/view_order:order_id',
     views: {
       'menuContent': {
         templateUrl: 'templates/view_order.html',
@@ -126,6 +126,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       'menuContent': {
         templateUrl: 'templates/notification.html',
         controller: 'NotificationCtrl'
+      }
+    }
+  })
+   .state('app.myorders', {
+	    cache: false,
+    url: '/my_order',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/my_order.html',
+        controller: 'MyOrderCtrl'
       }
     }
   })

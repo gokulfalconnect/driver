@@ -1,11 +1,13 @@
 
-	server   = 'http://www.falconnect.in/restaurantdemo/public/api/';
+	//	server   = 'http://www.falconnect.in/restaurantdemo/public/api/';
 
-   //    server = 'http://localhost/falconnect/falconnectwebsite/restaurantdemo/public/api/';
+       server = 'http://localhost/falconnect/falconnectwebsite/restaurantdemo/public/api/';
 
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $ionicLoading, $ionicHistory, $ionicSideMenuDelegate, $ionicHistory,$rootScope) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $ionicLoading, $ionicHistory, $ionicSideMenuDelegate, $ionicHistory,$rootScope,$http) {
+	
+	
 
 	$rootScope.back_show = '0';
 	
@@ -48,21 +50,109 @@ angular.module('starter.controllers', [])
 	
 	$scope.change_toggle = function()
 	{
+		$scope.driver.deliverboy_id = window.localStorage.getItem('user_id');
+		
 		if($scope.driver.status == true)
 		{
 			
+			
 			$scope.driver.text = "online";
+			
+			$scope.driver.present_status =1;
+			
+			$ionicLoading.show();
+			
+	$http({
+								url: server+'doDeliveryboyChangestatus',
+								method: "POST",
+								headers : {
+									
+									'Content-Type': 'application/json'
+									
+									
+								},
+								//timeout : 4500,
+								data: JSON.stringify($scope.driver),
+							})
+							.success(function(response) {
+										
+								$ionicLoading.hide();
+								
+								//alert(JSON.stringify(response.message));
+								
+											
+								
+														
+							}, 
+						
+							function(response) { // optional
+							
+								$ionicLoading.hide();  
+								  
+							}).error(function(data)
+								{
+									$ionicLoading.hide();
+									//alert("error="+data);
+									alert("Network error. Please try after some time");
+							
+									
+								});
+		 
 		}
 		else
 		{
 			
+			
 			$scope.driver.text = "Offine";
+			
+			$scope.driver.present_status = '0';
+			
+			$ionicLoading.show();
+			
+	$http({
+								url: server+'doDeliveryboyChangestatus',
+								method: "POST",
+								headers : {
+									
+									'Content-Type': 'application/json'
+									
+									
+								},
+								//timeout : 4500,
+								data: JSON.stringify($scope.driver),
+							})
+							.success(function(response) {
+										
+								$ionicLoading.hide();
+								
+								//alert(JSON.stringify(response.message));
+								
+											
+								
+														
+							}, 
+						
+							function(response) { // optional
+							
+								$ionicLoading.hide();  
+								  
+							}).error(function(data)
+								{
+									$ionicLoading.hide();
+									//alert("error="+data);
+									alert("Network error. Please try after some time");
+							
+									
+								});
 		}
+		
+		
+		
 	}
 	
 })
 
-
+	
 .controller('LoginCtrl', function($scope, $ionicSideMenuDelegate,$ionicModal,$state, $rootScope, $ionicLoading, $http ){
 	
 	$rootScope.back_show = '0';
@@ -81,10 +171,18 @@ angular.module('starter.controllers', [])
 	  {
 		  
 		  
-		$ionicLoading.show();
+		  if($scope.logindata.emailid == undefined || $scope.logindata.password == undefined)
+		  {
+			  alert("Please Enter username and password");
+		  }
+		  
+		  else
+		  {
+			  
+			  $ionicLoading.show();
 			
 	$http({
-								url: server+'doEmployeeLogin',
+								url: server+'doDeliveryboyLogin',
 								method: "POST",
 								headers : {
 									
@@ -107,7 +205,7 @@ angular.module('starter.controllers', [])
 								}
 							else
 							{
-									$scope.driver_data = response.employeedetails;
+									$scope.driver_data = response.deliveryboydetails;
 									
 									//alert(JSON.stringify($scope.driver_data));
 									
@@ -115,9 +213,9 @@ angular.module('starter.controllers', [])
 									
 									window.localStorage.setItem('user_id', $scope.driver_data[0].id);
 									
-									window.localStorage.setItem('name', $scope.driver_data[0].employee_name);
+									window.localStorage.setItem('name', $scope.driver_data[0].email);
 									
-									window.localStorage.setItem('phone', $scope.driver_data[0].phone);
+									//window.localStorage.setItem('phone', $scope.driver_data[0].phone);
 									
 								
 								$state.go('app.home');
@@ -140,6 +238,7 @@ angular.module('starter.controllers', [])
 							
 									
 								});
+		  }
 		 
 		  
 	  }
@@ -183,11 +282,58 @@ angular.module('starter.controllers', [])
 		 
 	 }
 	
-}).controller('HomeCtrl', function($scope, $rootScope){
+}).controller('HomeCtrl', function($scope, $rootScope, $ionicLoading, $http){
 	
 	$rootScope.back_show = '0';
 	
 	$rootScope.show_home = '0';
+	
+	$scope.user_data = {};
+	
+	$scope.order_details = {};
+	
+	$scope.user_data.deliverboy_id = window.localStorage.getItem('user_id');
+	
+	//$scope.user_data.deliverboy_id = 5;
+	
+	
+	  $ionicLoading.show();
+			
+	$http({
+								url: server+'doGetDeliveryboyOrders',
+								method: "POST",
+								headers : {
+									
+									'Content-Type': 'application/json'
+									
+									
+								},
+								//timeout : 4500,
+								data: JSON.stringify($scope.user_data),
+							})
+							.success(function(response) {
+										
+								$ionicLoading.hide();
+								
+							//	alert(JSON.stringify(response));
+							
+							$scope.order_details = response.orderlist;
+									
+							}, 
+						
+							function(response) { // optional
+							
+								$ionicLoading.hide();  
+								  
+							}).error(function(data)
+								{
+									$ionicLoading.hide();
+									//alert("error="+data);
+									alert("Network error. Please try after some time");
+							
+									
+								});
+	
 	
 	
 }).controller('ProfileCtrl', function($scope,$rootScope,$ionicLoading,$http){
@@ -200,12 +346,12 @@ angular.module('starter.controllers', [])
 	
 	$scope.profiledata = {};
 	
-	$scope.profileinfo.employee_id = window.localStorage.getItem('user_id');
+	$scope.profileinfo.deliverboy_id = window.localStorage.getItem('user_id');
 	
 		$ionicLoading.show();
 			
 	$http({
-								url: server+'doEmployeeViewProfile',
+								url: server+'doDeliveryboyViewProfile',
 								method: "POST",
 								headers : {
 									
@@ -220,7 +366,7 @@ angular.module('starter.controllers', [])
 										
 								$ionicLoading.hide();
 								
-							$scope.profiledata = response.employeedetails;
+							$scope.profiledata = response.deliveryprofile;
 							
 														
 							}, 
@@ -240,13 +386,70 @@ angular.module('starter.controllers', [])
 		 
 	
 	
-}).controller('ViewOrderCtrl', function($scope, $ionicModal,  $ionicActionSheet,$rootScope){
+}).controller('ViewOrderCtrl', function($scope, $ionicModal,  $ionicActionSheet,$rootScope,$ionicLoading,$http,$stateParams){
 	
 	$rootScope.back_show = '1';
 	
 	$scope.delivery_status = {};
 	
-	$scope.delivery_status = '';
+	$scope.delivery_status = 'Picked';
+	
+	$scope.order_data = {};
+	
+	$scope.order_cust_details = {};
+	
+	$scope.order_details = {};
+	
+	$scope.order_data.deliverboy_id = window.localStorage.getItem('user_id');
+	
+	$scope.order_data.order_id = $stateParams.order_id;
+	
+	$ionicLoading.show();
+			
+	$http({
+								url: server+'doGetDeliveryboyOrderitems',
+								method: "POST",
+								headers : {
+									
+									'Content-Type': 'application/json'
+									
+									
+								},
+								//timeout : 4500,
+								data: JSON.stringify($scope.order_data),
+							})
+							.success(function(response) {
+										
+								$ionicLoading.hide();
+								
+							$scope.order_cust_details = response.orderlist[0];
+							
+							$scope.order_details = response.orderlist;
+							
+							$scope.total_amount = response.Ordersamount;
+							
+							
+							
+							window.localStorage.setItem('cust_lat',$scope.order_cust_details.latitude);
+							window.localStorage.setItem('cust_long', $scope.order_cust_details.longitude);
+							
+														
+							}, 
+						
+							function(response) { // optional
+							
+								$ionicLoading.hide();  
+								  
+							}).error(function(data)
+								{
+									$ionicLoading.hide();
+									//alert("error="+data);
+									alert("Network error. Please try after some time");
+							
+									
+								});
+	
+	
 	
 	$scope.modal_direction = function()
 	{
@@ -294,15 +497,16 @@ angular.module('starter.controllers', [])
        switch (index){
 			case 0 :
 				$scope.delivery_status = 'Delivered';
+				$scope.order_deliver();
 				return true;
 			case 1 :
-				$scope.delivery_status = 'In Traffic';
+				$scope.delivery_status = 'Not Delivered';
 				return true;
 			case 2 :
-				$scope.delivery_status = 'On the way';
+				$scope.delivery_status = 'In Traffic';
 				return true;
 			case 3 :
-				$scope.delivery_status = 'Picked';
+				$scope.delivery_status = 'On the way';
 				return true;
 		}
         return true;
@@ -326,6 +530,11 @@ angular.module('starter.controllers', [])
     return $scope.shownGroup === group;
   }
 	 
+	 
+	 $scope.order_deliver = function()
+	 {
+		 alert("del");
+	 }
 	
 }).controller('MapCtrl', function($scope, $ionicLoading, $cordovaGeolocation){
 
@@ -348,14 +557,15 @@ angular.module('starter.controllers', [])
  
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
 	  
- alert("111");
+
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	
 	//alert(position.coords.latitude);
 	
 	//alert(position.coords.longitude);
 	
-	
+	//alert("l="+window.localStorage.getItem('cust_lat'));
+	//alert("lo="+window.localStorage.getItem('cust_long'));
 	var markers = [
 								{
 									"lat":position.coords.latitude,
@@ -365,8 +575,8 @@ angular.module('starter.controllers', [])
 								},
 								
 								{
-									"lat":13.106745,
-									"lng": 80.096951,
+									"lat":window.localStorage.getItem('cust_lat'),
+									"lng": window.localStorage.getItem('cust_long'),
 									
 
 								}
@@ -492,7 +702,7 @@ angular.module('starter.controllers', [])
 	
 }).controller('NotificationCtrl', function($scope, $interval,$ionicPopup, $state){
 	
-	  $scope.countDown = 0; // number of seconds remaining
+	/*  $scope.countDown = 0; // number of seconds remaining
     var stop;
 
    
@@ -511,7 +721,7 @@ angular.module('starter.controllers', [])
              template: ''});
         }
       },1000,0);
-	
+	*/
 	
 	$scope.accept_order = function()
 	{
@@ -525,4 +735,7 @@ angular.module('starter.controllers', [])
 		
 	}
 	
+}).controller('MyOrderCtrl', function($scope){
+
+
 });

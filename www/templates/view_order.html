@@ -6,14 +6,12 @@
 	
 		<div class="row">
 			<div class="col col-60">
-			<h4>Jacob Mathew</h4>
-				<p>Kings palace</br>
-				veliyanad,kidangara</br>
-				Alappuzha</p>
+			<h4>{{order_cust_details.customer_name}}</h4>
+				<p>{{order_cust_details.address}}</p>
 			
 			</div>
 			<div class="col col-40">
-			<span>123456</span></br>
+			<span>{{order_cust_details.id}}</span></br>
 			COD
 			
 			</div>
@@ -21,7 +19,7 @@
 		</div>
 		<div class="row" >
 			<div class="col col-50" style="border:1px solid black">
-			 <i class="ion-ios-telephone ion_icons_header"></i> <a href="tel:123-456-7890">Call customer</a>
+			 <i class="ion-ios-telephone ion_icons_header"></i> <a href="tel:' + {{order_cust_details.phone}} + '">Call customer</a>
 			
 			</div>
 			<div class="col col-50" style="border:1px solid black" ui-sref="app.map">
@@ -40,21 +38,14 @@
       <ion-item><h2>Order Details</h2></ion-item>
     </ion-list>
 	
-      <ion-item>Hyderabadi Biriyani
-        <span class="item-note">Rs.155.00</span>
+      <ion-item ng-repeat="orders in order_details">{{orders.item_name}}
+	  <span>Qty:{{orders.item_quanitity}}
+        <span class="item-note">Rs.{{orders.item_price}}</span>
       </ion-item>
-      <ion-item>Pepper Barbecue
-        <span class="item-note">Rs.250.00</span>
-      </ion-item>
-      <ion-item>Chiken Tikka
-        <span class="item-note">Rs.250.00</span>
-      </ion-item>
-      <ion-item>Ice Cream
-        <span class="item-note">Rs.600.00</span>
-      </ion-item>
+     
       <ion-item class="item-icon-left dark">
         <i class="icon ion-ionic"></i>Subtotal
-        <span class="item-note">Rs.1155.00</span>
+        <span class="item-note">Rs.{{total_amount}}</span>
       </ion-item>
     </div>
     <div class="spacer" style="width: 300px; height: 8px;"></div>

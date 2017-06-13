@@ -4,8 +4,8 @@
       <ion-nav-back-button>
       </ion-nav-back-button>
 
-      <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+      <ion-nav-buttons side="left"> 
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" ng-click="menu_click()">
         </button>
 	<!--	 <button class="button button-icon button-clear ion-home" ui-sref="app.home" ng-if="show_home=='1'"></button>-->
       </ion-nav-buttons>
@@ -44,6 +44,10 @@
         	<i class="icon ion-home"></i>
           Dashboard
         </ion-item>
+		<ion-item  menu-close ui-sref="app.myorders" class="item-icon-left" >
+        	<i class="icon ion-home"></i>
+          My Orders
+        </ion-item>
 	<ion-item menu-close ui-sref="app.rank" class="item-icon-left">
 		<i class="icon ion-ios-star-outline"></i>
           Ranking
@@ -53,8 +57,8 @@
           Contact Us
         </ion-item>
 		<ion-item  menu-close   class="item-icon-left" ui-sref="app.notification">
-        	<i class="icon ion-android-bulb"></i>
-          Accept/reject
+        	<i class="icon ion-android-call"></i>
+          ACcept/reject
         </ion-item>
             </ion-list>
     </ion-content>
