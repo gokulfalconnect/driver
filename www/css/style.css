@@ -65,6 +65,8 @@ a{color:inherit;text-decoration:none}
 	color:#fff;
 	border-color:#1161ee;
 }
+
+
 .login-form{
 	min-height:345px;
 	position:relative;
@@ -263,4 +265,68 @@ font-size:50px;
 }
 .header-icon-padding { 
 padding-bottom:55px;
+}
+
+.list:last-child.card {
+    margin-bottom: 0px !important;
+}
+
+.card-header-span
+{
+	color: #FFF !important;
+	font-weight: bold;
+	font-size: 1em;
+}
+
+.card, .list-inset {
+    overflow: hidden;
+    margin: 5px 5px !important;
+    border-radius: 2px;
+    background-color: #fff;
+}
+
+.header-title-view
+{
+	background-color: #f1f1f1;
+	color: #111 !important;
+}
+
+.button-darken
+{
+	background-color: #42A5F5;
+	color: #FFF !important;
+}
+
+.button-medium
+{
+	background-color: #f2f2f2;
+	color: #111 !important;
+}
+
+
+.button-light
+{
+	background-color: #C2185B;
+	color: #FFF !important;
+}
+
+.button-green
+{
+	background-color: #FF9800;
+	color: #FFF !important;
+}
+
+
+.item-divider {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    min-height: 30px;
+    background-color: #64B5F6 !important;
+    color: #FFF !important;
+    font-weight: 500;
+}
+
+.content-font
+{
+	font-size: 13px !important;
 }

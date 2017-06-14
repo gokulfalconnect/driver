@@ -1,22 +1,56 @@
 <ion-view view-title="Dashboard" cache-view="false" hide-back-button="true">
 
   <ion-content overflow-scroll="true">
-	<div style="height:10%;background-color:black">
+
+  	  <div class = "row header-title-view padding" align="center">
+		   <div class = "col header-title-view padding" >
+		   	<span >ORDERS</span>
+		   </div>
+   </div>
+
+   <div class="row padding">
+   	<div class="col">
+	   	<button class="button button-full button-medium">
+	   		Origin
+		</button>
 	</div>
-	<div style="">
-		<div>
-			<h2 style="text-align:center">Orders</h2>
-		</div>
-		<div class="row">
-			<div class="col col-50">
-				<h3 style="text-align:center">Origin</h3>
-			</div>
-			<div class="col col-50">
-				<h3 style="text-align:center">Destination</h3>
-			</div>
-		</div>
+	<div class="col">
+	   	<button class="button button-full button-darken">
+	   		Destination
+		</button>
 	</div>
-	<div ng-repeat="order in order_details">
+	</div>
+
+
+  <div ng-repeat="order in order_details">	
+  <div class = "col" ui-sref="app.view_order({order_id : order.id})">
+   <div class="card list">
+   <div class="item item-divider">
+      <span class="card-header-span ">{{order.restaurant_name}}</span>
+   </div>
+   
+   <div class="item item-text-wrap">
+    <div class="row" >
+    	 <div class="col col-60">
+     		 <h2 class="content-font" style="text-align: justify-all;">{{order.address}}</h2>
+        </div>
+         <div class="col col-40 padding" align="center" >
+     		<h5 style="font-size: 16px; margin-bottom: 10px;"><b>COD</b></h5>
+     		<img src="img/rupee.svg" width="25" height="25">
+     		 <button class="button button-full button-green">
+		   		{{order.totalamount}}
+			</button>
+        </div>
+    </div>
+
+   </div>
+   </div>
+   
+  </div>
+</div>
+</div>
+
+<!-- 	<div ng-repeat="order in order_details">
 		<div class="row" ui-sref="app.view_order({order_id : order.id})">
 			<div class="col col-40" style="background-color:#D1CDCC">
 				{{order.restaurant_name}}
@@ -39,7 +73,7 @@
 		
 	
 	</div>
-
+ -->
   
   
   </ion-content>
