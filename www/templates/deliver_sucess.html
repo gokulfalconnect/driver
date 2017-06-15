@@ -1,0 +1,27 @@
+<ion-view view-title="Delivery">
+   <ion-content class="padding">
+    
+      <div ng-show="countDown>0">Your time left is {{countDown}} .</div>
+	  
+	<div style="padding-top:20%">
+		<div class="row">
+			<button class="button button-full button-small button-assertive" >Rate User</button>
+		</div>
+		<div class="row">
+			<button class="button button-full button-small button-assertive" >Comment</button>
+		</div>
+	</div>
+	  
+	  
+    </ion-content>
+</ion-view>
+<ion-footer-bar  class="item-bg-color">
+<div class="row " ng-click="deliver_submit()">
+  
+  <div class="col" align="center">
+    <span>Submit</span>
+  </div>
+ 
+</div>
+
+</ion-footer-bar>

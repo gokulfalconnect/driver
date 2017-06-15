@@ -1,0 +1,46 @@
+<ion-modal-view cache-view="false">
+<ion-nav-bar class="bar-royal">
+		<ion-nav-title>
+			Not Delivered
+		</ion-nav-title>
+		<ion-nav-buttons side="right">
+      	<button class="button button-icon button-clear ion-close-round" ng-click="closeModal()">
+        	</button>
+    	</ion-nav-buttons>
+</ion-nav-bar>
+	  <ion-content overflow-scroll="true">
+		<div style="padding-top:10%">
+			<div  align="center">
+	  		
+	  		 	<h4>Why its no delivered?</h4>
+	  		
+			</div>
+			
+			<ion-list>
+ 
+    
+    <ion-radio value="Customer Not Available" ng-model="result">Customer Not Available</ion-radio>
+  
+    <ion-radio value="Invalid Address" ng-model="result">Invalid Address</ion-radio>
+ 
+    <ion-radio value="Accident" ng-model="result">Accident</ion-radio>
+	
+	<ion-radio value="BreakDown" ng-model="result">BreakDown</ion-radio>
+	
+	<ion-radio value="Others" ng-model="result">Others</ion-radio>
+	
+	
+	<button class="button button-full button-assertive"ng-click="reason_submit(result)">Submit</button>
+  
+</ion-list>
+
+
+	
+		</div>
+  
+	  
+	  
+  </ion-content>
+  
+ 
+</ion-modal-view>

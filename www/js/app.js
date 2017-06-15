@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaGeolocation) {
+.run(function($ionicPlatform, $cordovaGeolocation,$ionicLoading,$http) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -22,7 +22,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 	
 	
 	var watchOptions = {
-    timeout : 3000,
+    timeout : 5000,
     enableHighAccuracy: false // may cause errors if true
   };
 
@@ -34,10 +34,57 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       alert("error="+err);
     },
     function(position) {
+		
+		//alert("a="+window.localStorage.getItem('user_id'));
+		if(window.localStorage.getItem('user_id')!= null)
+		{
+			var location_info={};
+			
+			location_info.deliverboy_id = window.localStorage.getItem('user_id');
+			
+			location_info.latitude  = position.coords.latitude;
+			location_info.longitude  = position.coords.longitude;
+			
+			//alert("watch options="+position.coords.latitude);
+			//alert("long="+position.coords.longitude);
+			
+			$http({
+								url: server+'doDeliveryboyUpdatelocation',
+								method: "POST",
+								headers : {
+									
+									'Content-Type': 'application/json'
+									
+									
+								},
+								//timeout : 4500,
+								data: JSON.stringify(location_info),
+							})
+							.success(function(response) {
+										
+								//$ionicLoading.hide();
+									//alert(JSON.stringify(response));					
+							}, 
+						
+							function(response) { // optional
+							
+								//$ionicLoading.hide();  
+								  
+							}).error(function(data)
+								{
+									//$ionicLoading.hide();
+									//alert("error="+data);
+									alert("Network error. Please try after some time");
+							
+									
+								});
+			
+		}
+		
+		
 		//alert("watch options="+position.coords.latitude);
 		//alert("long="+position.coords.longitude);
-      var lat  = position.coords.latitude;
-      var long = position.coords.longitude;
+      
   });
 	
 	
@@ -136,6 +183,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       'menuContent': {
         templateUrl: 'templates/my_order.html',
         controller: 'MyOrderCtrl'
+      }
+    }
+  })
+  .state('app.deliver_sucess', {
+	    cache: false,
+    url: '/deliver_sucess',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/deliver_sucess.html',
+		
+        controller: 'DeliverSucessCtrl'
       }
     }
   })

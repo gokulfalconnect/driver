@@ -10,7 +10,7 @@
 
    <div class="row padding">
    	<div class="col">
-	   	<button class="button button-full button-medium">
+	   	<button class="button button-full button-darken">
 	   		Origin
 		</button>
 	</div>
@@ -25,23 +25,32 @@
   <div ng-repeat="order in order_details">	
   <div class = "col" ui-sref="app.view_order({order_id : order.id})">
    <div class="card list">
-   <div class="item item-divider">
-      <span class="card-header-span ">{{order.restaurant_name}}</span>
-   </div>
+	   <div class="row">
+			<div class="col col-40">
+				<div class="item item-divider">
+				  <span class="card-header-span ">{{order.restaurant_name}}</span>
+				</div>
+					
+			</div>
+			<div class="col col-60">
+				 <h2 class="content-font" style="text-align: justify-all;">{{order.address}}</h2>
+			</div>
+	   </div>
    
-   <div class="item item-text-wrap">
-    <div class="row" >
-    	 <div class="col col-60">
-     		 <h2 class="content-font" style="text-align: justify-all;">{{order.address}}</h2>
-        </div>
-         <div class="col col-40 padding" align="center" >
-     		<h5 style="font-size: 16px; margin-bottom: 10px;"><b>COD</b></h5>
-     		<img src="img/rupee.svg" width="25" height="25">
-     		 <button class="button button-full button-green">
-		   		{{order.totalamount}}
-			</button>
-        </div>
-    </div>
+   
+	<div class="item item-text-wrap">
+		<div class="row" >
+			<div class="col col-50" align="center" >
+				 <h5 style="font-size: 16px; margin-bottom: 10px;"><b>COD</b></h5>
+			</div>
+			<div class="col col-40 padding" align="center" >
+				
+				<img src="img/rupee.svg" width="25" height="25">
+				<button class="button button-full button-green">
+					{{order.totalamount}}
+				</button>
+			</div>
+		</div>
 
    </div>
    </div>

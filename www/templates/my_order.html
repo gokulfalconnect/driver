@@ -1,110 +1,62 @@
 <ion-view view-title="My Order" hide-back-button="true">
 
-<ion-content class="no-header" overflow-scroll="true">
+<ion-content overflow-scroll="true">
 
-<div>
-  <ion-tabs class="tabs-positive">
-  		<ion-tab title="Processing Orders">
-			<ion-nav-view class="no-header" name="home-tab">
-				<div  style="padding-top:40px">
-					<div class="card"  ui-sref="app.({order_id : order.id})">
-						<div class="item item-thumbnail-left">
-					      
-					      <div class="col">
-					      
-					      <p style="white-space: none !important;">Address</p>
-					      </div>
-					    <div class="col col-80">
-					      	 	<h2 style="align:center"> Order Date </h2></br>
-					      	 	  <h3 style="align:center">Date</h3>
-					      	 </div>
-		    			</div>
-					<div class="item item-divider" style="padding: 0 !important; background-color: #FFF !important; border:none !important;" align="center">
-				    	<div class="row">
-				    		<div class="col col-50">
-				    			<h3 class="h4-font">Payment Method</h3>
-				    			<h4>COD</h4>
-				    		</div>
-				    		
-				    		<div class="col col-50">
-				    		<h3 class="h4-font">Total</h3>
-				    		<h4>1550</h4>
-				    		</div>
-				    	</div>
-
-				    	 <div class="item item-body">
-						<div class="show-list-numbers-and-dots">
-						  <span class="order-success">{{order.order_status_desc}}</span>
-						</div>
-					  </div>
-				   </div>
-				</div>
-
-				<div class="card" ng-if="present_order_details.length<1">
-				
-				<span>No Items Available</span>
-				
-				</div>
+	<div>
+	
+		<div class="row">
+			<div class="col col-30" >
+				Date
+			</div>
+			<div class="col col-30">
+				Order No
+			</div>
+			<div class="col col-30">
+				Status
+			</div>
 			
-
-				
-
+		</div>
 		
-			</ion-nav-view>
-		</ion-tab>
-
-
-
-
-
-			<ion-tab title="Delivered Orders" >
-			<ion-nav-view name="home-tab">
-					<div style="padding-top:40px">
-					<div class="card" ng-repeat="order in past_order_details"  ui-sref="app.order_details({order_id : order.id})">
-						<div class="item item-thumbnail-left">
-					      
-					      <div class="col">
-					      
-					      <p style="white-space: none !important;">{{order.address}}</p>
-					      </div>
-					    <div class="col col-50">
-					      	 	<span> Payment Method :</span>
-					      	 	  <span>{{order.order_type_name}}</span>
-					      	 </div>
-		    			</div>
-					<div class="item item-divider" style="padding: 0 !important; background-color: #FFF !important; border:none !important;" align="center">
-				    	<div class="row">
-				    		<div class="col col-50">
-				    			<h3 class="h4-font">Order Date</h3>
-				    			<h4>{{order.order_date}}</h4>
-				    		</div>
-				    		
-				    		<div class="col col-50">
-				    		<h3 class="h4-font">Total</h3>
-				    		<h4>{{order.totalamount}}</h4>
-				    		</div>
-				    	</div>
-
-				    	 <div class="item item-body">
-						<div class="show-list-numbers-and-dots">
-						  <span class="order-success">{{order.order_status_desc}}</span>
-						</div>
-					  </div>
-				   </div>
-				</div>
-					
-					<div class="card" ng-if="past_order_details.length<1">
-				
-				<span>No Items Available</span>
-				
-				</div>
-
-					</div>
+		<div class="row" ui-sref="app.view_order({order_id : 1})">
+			<div class="col col-30" >
+				19/5/2016
+			</div>
+			<div class="col col-30">
+				A230
+			</div>
+			<div class="col col-30">
+				Delivered
+			</div>
 			
-			</ion-nav-view>
-		</ion-tab>
-</ion-tabs>
-</div>
+		</div>
+		
+		<div class="row" ui-sref="app.view_order({order_id : 1})">
+			<div class="col col-30" >
+				19/5/2016
+			</div>
+			<div class="col col-30">
+				BC435
+			</div>
+			<div class="col col-30">
+				Delivered
+			</div>
+			
+		</div>
+		
+			<div class="row" ui-sref="app.view_order({order_id : 1})">
+			<div class="col col-30" >
+				19/5/2016
+			</div>
+			<div class="col col-30">
+				BC435
+			</div>
+			<div class="col col-30">
+				Delivered
+			</div>
+			
+		</div>
+
+	</div>
 
 
 </ion-content>

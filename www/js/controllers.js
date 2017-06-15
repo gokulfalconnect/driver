@@ -386,7 +386,7 @@ angular.module('starter.controllers', [])
 		 
 	
 	
-}).controller('ViewOrderCtrl', function($scope, $ionicModal,  $ionicActionSheet,$rootScope,$ionicLoading,$http,$stateParams){
+}).controller('ViewOrderCtrl', function($scope, $ionicModal,  $ionicActionSheet,$rootScope,$ionicLoading,$http,$stateParams,$state){
 	
 	$rootScope.back_show = '1';
 	
@@ -403,6 +403,8 @@ angular.module('starter.controllers', [])
 	$scope.order_data.deliverboy_id = window.localStorage.getItem('user_id');
 	
 	$scope.order_data.order_id = $stateParams.order_id;
+	
+	window.localStorage.setItem('order_id', $stateParams.order_id);
 	
 	$ionicLoading.show();
 			
@@ -477,9 +479,9 @@ angular.module('starter.controllers', [])
       titleText: 'Delivery Status',
       buttons: [
 	  { text: 'Delivered' },
-        { text: 'In Traffic' },	
-		  { text: 'On the way' },
-		    { text: 'Picked' },
+		 { text: 'Not delivered' }
+			
+				
 		
         
       ],
@@ -501,13 +503,9 @@ angular.module('starter.controllers', [])
 				return true;
 			case 1 :
 				$scope.delivery_status = 'Not Delivered';
+				$scope.order_not_deliver();
 				return true;
-			case 2 :
-				$scope.delivery_status = 'In Traffic';
-				return true;
-			case 3 :
-				$scope.delivery_status = 'On the way';
-				return true;
+			
 		}
         return true;
       },
@@ -533,7 +531,92 @@ angular.module('starter.controllers', [])
 	 
 	 $scope.order_deliver = function()
 	 {
-		 alert("del");
+		 $state.go('app.deliver_sucess');
+	 }
+	 
+	 $scope.order_not_deliver = function()
+	 {
+		 
+		$scope.openmodal();
+	 }
+	 
+	  $scope.openmodal = function()
+	{
+		$ionicModal.fromTemplateUrl('templates/not_delivered.html', {
+						scope: $scope
+					  }).then(function(modal) {
+						  
+							
+							$scope.modal = modal;
+							$scope.modal.show();
+														
+					  });
+	}
+	
+	$scope.closeModal =  function()
+	 {
+		  $scope.modal.remove();
+	 }
+	 
+	 $scope.reason_submit = function(result)
+	 {
+		 if(result == undefined)
+		 {
+			 alert("Select any of the option and proceed");
+		 }
+		 else
+		 {
+			 
+		   $scope.modal.remove();
+		 $scope.deliver_data = {};
+
+		$scope.deliver_data.deliverboy_id = window.localStorage.getItem('user_id');
+
+		$scope.deliver_data.orderid = window.localStorage.getItem('order_id');
+
+		$scope.deliver_data.delivered_status = '0';
+
+		$scope.deliver_data.remarks = result;
+		   
+			$ionicLoading.show();
+	 
+	$http({
+								url: server+'doDeliveryboyDeliveredstatus',
+								method: "POST",
+								headers : {
+									
+									'Content-Type': 'application/json'
+									
+									
+								},
+								//timeout : 4500,
+								data: JSON.stringify($scope.deliver_data),
+							})
+							.success(function(response) {
+										
+								$ionicLoading.hide();
+							
+									//alert(JSON.stringify(response));	
+									
+									$state.go('app.home');
+							}, 
+						
+							function(response) { // optional
+							
+								$ionicLoading.hide();  
+								  
+							}).error(function(data)
+								{
+									$ionicLoading.hide();
+									//alert("error="+data);
+									alert("Network error. Please try after some time");
+							
+									
+								});
+	
+		   
+		 }
+		 
 	 }
 	
 }).controller('MapCtrl', function($scope, $ionicLoading, $cordovaGeolocation){
@@ -738,4 +821,59 @@ angular.module('starter.controllers', [])
 }).controller('MyOrderCtrl', function($scope){
 
 
+}).controller('DeliverSucessCtrl' , function($scope,$stateParams, $ionicLoading, $http,$state){
+
+$scope.deliver_data = {};
+
+$scope.deliver_data.deliverboy_id = window.localStorage.getItem('user_id');
+
+$scope.deliver_data.orderid = window.localStorage.getItem('order_id');
+
+$scope.deliver_data.delivered_status = 1;
+
+$scope.deliver_data.remarks = '';
+
+$scope.deliver_submit = function()
+{
+	$ionicLoading.show();
+	 
+	$http({
+								url: server+'doDeliveryboyDeliveredstatus',
+								method: "POST",
+								headers : {
+									
+									'Content-Type': 'application/json'
+									
+									
+								},
+								//timeout : 4500,
+								data: JSON.stringify($scope.deliver_data),
+							})
+							.success(function(response) {
+										
+								$ionicLoading.hide();
+							
+									//alert(JSON.stringify(response));	
+									
+									$state.go('app.home');
+							}, 
+						
+							function(response) { // optional
+							
+								$ionicLoading.hide();  
+								  
+							}).error(function(data)
+								{
+									$ionicLoading.hide();
+									//alert("error="+data);
+									alert("Network error. Please try after some time");
+							
+									
+								});
+	
+	
+	
+	
+}
+	
 });
