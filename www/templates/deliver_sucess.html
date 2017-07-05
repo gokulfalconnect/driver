@@ -1,27 +1,31 @@
-<ion-view view-title="Delivery">
+<ion-view hide-nav-bar="true">
    <ion-content class="padding">
+   
+   <div  align="center">
+	<img src="img/order_cus.jpg" style="width:100px;height:100px;>
+	</div>
     
-      <div ng-show="countDown>0">Your time left is {{countDown}} .</div>
+   <div  align="center" style="padding-top:3%">
+	  		
+	  		 	<h1>Voucher</h1>
+				
+				<h2>Order is Delivered</h2>
+	  		
+			</div>
 	  
-	<div style="padding-top:20%">
+	<div style="padding-top:7%;padding-left:20%" align="center">
 		<div class="row">
-			<button class="button button-full button-small button-assertive" >Rate User</button>
-		</div>
+			<button class="button_style">Rate Customer</button>
+		</div></br>
 		<div class="row">
-			<button class="button button-full button-small button-assertive" >Comment</button>
+			<button class="button_style" >Comment</button>
+		</div></br>
+		<div class="row" ng-click="deliver_submit()">
+			<button class="button_style" >Submit</button>
 		</div>
 	</div>
 	  
 	  
     </ion-content>
 </ion-view>
-<ion-footer-bar  class="item-bg-color">
-<div class="row " ng-click="deliver_submit()">
-  
-  <div class="col" align="center">
-    <span>Submit</span>
-  </div>
- 
-</div>
 
-</ion-footer-bar>

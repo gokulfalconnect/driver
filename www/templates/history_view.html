@@ -38,14 +38,11 @@
         </div>
 
         <div class="row no_padding info_content">
-          <div class="col col-80 no_padding">
+          <div class="col no_padding">
             <h5 class="info_heading">CONTACT</h5>
             <h6 class="info_heading">Telephone No : {{order_cust_details.phone}}</h6>
             <h6 class="info_heading">Person : {{order_cust_details.customer_name}}</h6>
           </div>
-		  <div class="col col-20">
-		  <a href="tel:' + 91{{order_cust_details.phone}} + '"><i class="ion-ios-telephone ion_icons_header"></i> </a>
-		  </div>
         </div>
 
         <div class="float_bar">
@@ -54,7 +51,7 @@
 
       </div>
     </div>
-    <div  id="map" data-tap-disabled="true" style="display:block;position:relative;width:100%;height:100%;">
+    <div class="map_container" id="map" data-tap-disabled="true" style="display:block;position:relative;width:100%;height:100%;">
 	
    <!--   <creator-map-component options="{}" marker="true" location="chennai" zoom="12" style="display:block;position:relative;width:100%;height:200px;">
         <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" options="map.options">
@@ -78,7 +75,7 @@
   </ion-content>
 </ion-view>
 <ion-footer-bar align-title="left" class="item-bg-color" >
-<div class="row" ng-if="del_status=='0'">
+<div class="row" >
   
   <div class="col col-50" align="center" ui-sref="app.deliver_sucess">
     <span  ui-sref="app.food_menu" >Order Delivered <i class="icon ion-arrow-right-c"></i></span>
@@ -87,13 +84,5 @@
   <div class="col col-50 " align="center" ng-click="order_not_deliver()">
     <span ng-click="go_checkout()" >Undelivered</span>
   </div>
-</div>
-<div class="row" ng-if="del_status=='1'">
-  
-  <div class="col col" align="center">
-    <span >Order Delivered</span>
-  </div>
-
- 
 </div>
 </ion-footer-bar>

@@ -1,89 +1,30 @@
-<ion-view view-title="Dashboard" cache-view="false" hide-back-button="true">
+<ion-view view-title="" cache-view="false" hide-back-button="true">
+  <ion-content padding="false" class="has-header">
+    <h3 id="home-heading1" style="color:#333333;" class="dash_title">DASHBOARD</h3>
+    <div id="home-button-bar1" class="button-bar">
+      <button id="home-button4" style="font-weight:500;color:#4B4B4B;" class="button button-stable button-block button-outline">ORIGIN</button>
+      <button id="home-button5" style="font-weight:500;color:#4B4B4B;" class="button button-stable button-block button-outline">DESTINATION</button>
+    </div>
+    <div>
+      <div class="row dash_rows" ng-repeat="order in order_details" ui-sref="app.view_order({order_id : order.id})">
+        <div class="col col-50 dash_content_left">
+          {{order.restaurant_name}}
+        </div>
 
-  <ion-content overflow-scroll="true">
+        <div class="col col-50 dash_content_right">
+          {{order.customerloc.address}}
+        </div>
+        <img class="dash_cont_img" src="https://s-media-cache-ak0.pinimg.com/originals/9d/86/ab/9d86ab26bc61bc94bf09d352edff07a1.png" width="60" height="60">
+        <button class="button button-assertive dash_cont_btn">{{order.totalamount}}</button>
 
-  	  <div class = "row header-title-view padding" align="center">
-		   <div class = "col header-title-view padding" >
-		   	<span >ORDERS</span>
-		   </div>
-   </div>
-
-   <div class="row padding">
-   	<div class="col">
-	   	<button class="button button-full button-darken">
-	   		Origin
-		</button>
-	</div>
-	<div class="col">
-	   	<button class="button button-full button-darken">
-	   		Destination
-		</button>
-	</div>
-	</div>
-
-
-  <div ng-repeat="order in order_details">	
-  <div class = "col" ui-sref="app.view_order({order_id : order.id})">
-   <div class="card list">
-	   <div class="row">
-			<div class="col col-40">
-				<div class="item item-divider">
-				  <span class="card-header-span ">{{order.restaurant_name}}</span>
-				</div>
-					
-			</div>
-			<div class="col col-60">
-				 <h2 class="content-font" style="text-align: justify-all;">{{order.address}}</h2>
-			</div>
-	   </div>
-   
-   
-	<div class="item item-text-wrap">
-		<div class="row" >
-			<div class="col col-50" align="center" >
-				 <h5 style="font-size: 16px; margin-bottom: 10px;"><b>COD</b></h5>
-			</div>
-			<div class="col col-40 padding" align="center" >
+      </div>
+		
+		<div class="card" ng-if="order_details.length<1">
 				
-				<img src="img/rupee.svg" width="25" height="25">
-				<button class="button button-full button-green">
-					{{order.totalamount}}
-				</button>
-			</div>
-		</div>
-
-   </div>
-   </div>
-   
-  </div>
-</div>
-</div>
-
-<!-- 	<div ng-repeat="order in order_details">
-		<div class="row" ui-sref="app.view_order({order_id : order.id})">
-			<div class="col col-40" style="background-color:#D1CDCC">
-				{{order.restaurant_name}}
-			</div>	
-			<div class="col col-20" style="background-color:#B2A7A5">
-				<div class="row">
-				COD
+				<h2>No New Orders Available</h2>
+				
 				</div>
-				<div class="row" style="padding-bottom:0px">
-				<button>{{order.totalamount}}</button>
-				</div>
-			</div>
-			<div class="col col-40" style="background-color:#D4CDCC">
-				{{order.address}}
-				</div>
-		</div>	
-		<div style="height:2%;">
-		</div>
 		
-		
-	
-	</div>
- -->
-  
-  
+    </div>
   </ion-content>
 </ion-view>

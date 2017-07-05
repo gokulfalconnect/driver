@@ -6312,7 +6312,7 @@ button.item.item-button-right {
   .item-avatar-left .item-content .item-image {
     position: absolute;
     top: 16px;
-    left: 16px;
+    left: 5px;
     max-width: 40px;
     max-height: 40px;
     width: 100%;

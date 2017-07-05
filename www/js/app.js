@@ -6,8 +6,91 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaGeolocation,$ionicLoading,$http) {
+.run(function($ionicPlatform, $cordovaGeolocation,$ionicLoading,$http ,$ionicPopup) {
   $ionicPlatform.ready(function() {
+	  
+	  
+	  
+	  
+	  
+	var deviceType = (navigator.userAgent.match(/iPad/i))  == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i))  == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
+	window.localStorage.setItem('deviceType',deviceType);
+	
+	//alert("device="+deviceType);
+		
+	 if(deviceType=='Android')
+	 {
+		 
+		
+		
+		
+		var pushNotification = window.plugins.pushNotification; 
+	pushNotification. register(successHandler,errorHandler,{"senderID":"644543420118","ecb":"onNotificationGCM"}); 
+
+
+	function successHandler(result) { 
+	
+	}
+	function errorHandler(error) { 
+	
+	}
+	 }
+	else
+	{
+		//alert("else");
+	 	
+	}
+	
+
+	onNotificationGCM = function(result) {
+		
+        // alert("gcm="+JSON.stringify(result));
+		
+		 switch( result.event )
+       {
+           case 'registered':
+               if ( result.regid.length > 0 )
+               {
+                 window.localStorage.setItem('app_id',result.regid);
+				// alert("app id="+result.regid);
+               }
+           break;
+
+           case 'message':
+		 // alert("11");
+             // this is the actual push notification. its format depends on the data model from the push server
+			//alert("res="+JSON.stringify(result));
+			
+			
+			
+			var myMedia = new Media('/android_asset/www/music/beep-2.mp3');
+				myMedia.play();
+				
+				//alert(result.message);
+				
+				var alertPopup = $ionicPopup.alert({
+						 title: 'DelBoy',
+						 template: result.message
+					  });
+				$state.go('app.view_order',{'order_id':result.payload.order_id});
+           
+           break;
+		   
+
+           case 'error':
+             alert('GCM error = '+result.msg);
+			 
+           break;
+
+           default:
+             alert('An unknown GCM event has occurred');
+             break;
+       }
+			
+     }
+	  
+	  
+	  
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -22,8 +105,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 	
 	
 	var watchOptions = {
-    timeout : 5000,
-    enableHighAccuracy: false // may cause errors if true
+    timeout : 3000,
+    enableHighAccuracy: true // may cause errors if true
   };
 
   var watch = $cordovaGeolocation.watchPosition(watchOptions);
@@ -34,8 +117,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       alert("error="+err);
     },
     function(position) {
-		
-		//alert("a="+window.localStorage.getItem('user_id'));
+		//alert("pos");
+	//	alert("a="+window.localStorage.getItem('user_id'));
 		if(window.localStorage.getItem('user_id')!= null)
 		{
 			var location_info={};
@@ -197,6 +280,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       }
     }
   })
+   .state('app.history_view', {
+	    cache: false,
+    url: '/history_view:order_id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/history_view.html',
+		
+        controller: 'HistoryViewCtrl'
+      }
+    }
+  })
+  
   .state('app.profile', {
 	   cache: false,
     url: '/profile',
@@ -208,6 +303,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
     }
   })
   ;
+ 
+  if(window.localStorage.getItem('user_id')!=null&&window.localStorage.getItem('user_id')!=''){
+		
+	
+			$urlRouterProvider.otherwise('/app/home');
+			
+			
+  }else{
+	 
+	  $urlRouterProvider.otherwise('/app/login');
+  }
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
+  
 });

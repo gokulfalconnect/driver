@@ -1,62 +1,18 @@
-<ion-view view-title="My Order" hide-back-button="true">
+<ion-view view-title="My Order" >
 
-<ion-content overflow-scroll="true">
+ <ion-content padding="true" style="background: url(img/dTIaUcsQTzyWBzK7FZNi_cwhtin3foijdna1y0hx2.jpg) no-repeat center;background-size:cover;" class="has-header">
 
-	<div>
-	
-		<div class="row">
-			<div class="col col-30" >
-				Date
-			</div>
-			<div class="col col-30">
-				Order No
-			</div>
-			<div class="col col-30">
-				Status
-			</div>
-			
-		</div>
-		
-		<div class="row" ui-sref="app.view_order({order_id : 1})">
-			<div class="col col-30" >
-				19/5/2016
-			</div>
-			<div class="col col-30">
-				A230
-			</div>
-			<div class="col col-30">
-				Delivered
-			</div>
-			
-		</div>
-		
-		<div class="row" ui-sref="app.view_order({order_id : 1})">
-			<div class="col col-30" >
-				19/5/2016
-			</div>
-			<div class="col col-30">
-				BC435
-			</div>
-			<div class="col col-30">
-				Delivered
-			</div>
-			
-		</div>
-		
-			<div class="row" ui-sref="app.view_order({order_id : 1})">
-			<div class="col col-30" >
-				19/5/2016
-			</div>
-			<div class="col col-30">
-				BC435
-			</div>
-			<div class="col col-30">
-				Delivered
-			</div>
-			
-		</div>
-
-	</div>
+	  <div ng-repeat="data in order_data" ui-sref="app.view_order({order_id :data.order_id})">
+        <ion-item class="item-avatar item-icon-right order_list">
+          <img src="img/EzN0CDnTYu3m1AXgttZX_krok-7.png">
+          <h2>Order Id - {{data.order_id}}</h2>
+          <p style="white-space:normal;">{{data.bill_date}}</p>
+          <p style="white-space:normal;"> STATUS - {{data.order_status_desc}} </p>
+          <i class="icon ion-chevron-right"></i>
+        </ion-item>
+        <div class="spacer" style="width: 300px; height: 14px;"></div>
+        
+      </div>
 
 
 </ion-content>

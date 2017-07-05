@@ -1,0 +1,46 @@
+<ion-modal-view cache-view="false">
+<ion-nav-bar class="bar-royal">
+		<ion-nav-title>
+			Order Items
+		</ion-nav-title>
+		<ion-nav-buttons side="right">
+      	<button class="button button-icon button-clear ion-close-round" ng-click="closeModal()">
+        	</button>
+    	</ion-nav-buttons>
+</ion-nav-bar>
+	  <ion-content overflow-scroll="true">
+		<div style="padding-top:10%">
+			<div  align="center">
+	  		
+	  		 	<h4></h4>
+	  		
+			</div>
+			
+		
+    <div class="card">
+	
+	<ion-list>
+      <ion-item><h2>Order Details</h2></ion-item>
+    </ion-list>
+	
+      <ion-item ng-repeat="orders in order_details">{{orders.item_name}}
+	  <span>Qty:{{orders.item_quanitity}}
+        <span class="item-note">Rs.{{orders.item_price}}</span>
+      </ion-item>
+     
+      <ion-item class="item-icon-left dark">
+        <i class="icon ion-ionic"></i>Subtotal
+        <span class="item-note">Rs.{{total_amount}}</span>
+      </ion-item>
+    </div>
+
+
+	
+		</div>
+  
+	  
+	  
+  </ion-content>
+  
+ 
+</ion-modal-view>

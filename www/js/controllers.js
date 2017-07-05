@@ -1,11 +1,11 @@
 
-	//	server   = 'http://www.falconnect.in/restaurantdemo/public/api/';
+		server   = 'http://www.falconnect.in/restaurantdemo/public/api/';
 
-       server = 'http://localhost/falconnect/falconnectwebsite/restaurantdemo/public/api/';
+ //  server = 'http://localhost/falconnect/falconnectwebsite/restaurantdemo/public/api/';
 
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $ionicLoading, $ionicHistory, $ionicSideMenuDelegate, $ionicHistory,$rootScope,$http) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $ionicLoading, $ionicHistory, $ionicSideMenuDelegate, $ionicHistory,$rootScope,$http ,$ionicPopup) {
 	
 	
 
@@ -93,7 +93,11 @@ angular.module('starter.controllers', [])
 								{
 									$ionicLoading.hide();
 									//alert("error="+data);
-									alert("Network error. Please try after some time");
+									//alert("Network error. Please try after some time");
+									var alertPopup = $ionicPopup.alert({
+										 title: 'Network Error',
+										 template: 'Please try after some time'
+									  });
 							
 									
 								});
@@ -140,7 +144,11 @@ angular.module('starter.controllers', [])
 								{
 									$ionicLoading.hide();
 									//alert("error="+data);
-									alert("Network error. Please try after some time");
+									//alert("Network error. Please try after some time");
+									var alertPopup = $ionicPopup.alert({
+									 title: 'Network Error',
+									 template: 'Please try after some time'
+								  });
 							
 									
 								});
@@ -153,7 +161,7 @@ angular.module('starter.controllers', [])
 })
 
 	
-.controller('LoginCtrl', function($scope, $ionicSideMenuDelegate,$ionicModal,$state, $rootScope, $ionicLoading, $http ){
+.controller('LoginCtrl', function($scope, $ionicSideMenuDelegate,$ionicModal,$state, $rootScope, $ionicLoading, $http ,$ionicPopup ){
 	
 	$rootScope.back_show = '0';
 	
@@ -173,12 +181,27 @@ angular.module('starter.controllers', [])
 		  
 		  if($scope.logindata.emailid == undefined || $scope.logindata.password == undefined)
 		  {
-			  alert("Please Enter username and password");
+			 // alert("Please Enter username and password");
+			 var alertPopup = $ionicPopup.alert({
+         title: 'Required Fields',
+         template: 'Please enter Username and Password'
+      });
 		  }
 		  
 		  else
 		  {
 			  
+			 $scope.logindata.app_id = window.localStorage.getItem('app_id');
+			 
+			 $scope.logindata.device_type = window.localStorage.getItem('deviceType');
+			 
+			// alert("app="+ $scope.logindata.app_id);
+			 
+			//alert("dev="+  $scope.logindata.device_type);
+		$scope.logindata.app_id  = 'KmP9qeRMCp8Fuhsuns4XEH509Fytg8iHDOgvC2BAUKkrbhJhyFBk4unAdFGuPo8HMl9Evl5VYeATFcK5aNBuSX869AzY85uRmJwSg78a3O22w9zfTlLofTWzVmoNFqUl4a';
+			
+			$scope.logindata.device_type = 'Android';
+				
 			  $ionicLoading.show();
 			
 	$http({
@@ -201,7 +224,11 @@ angular.module('starter.controllers', [])
 								
 								if(response.Result == 0)
 								{
-									alert(JSON.stringify(response.message));
+									//alert(JSON.stringify(response.message));
+									var alertPopup = $ionicPopup.alert({
+										 title: '',
+										 template: JSON.stringify(response.message)
+									  });
 								}
 							else
 							{
@@ -234,7 +261,11 @@ angular.module('starter.controllers', [])
 								{
 									$ionicLoading.hide();
 									//alert("error="+data);
-									alert("Network error. Please try after some time");
+									//alert("Network error. Please try after some time");
+									var alertPopup = $ionicPopup.alert({
+										 title: 'Network Error',
+										 template: 'Please try after some time'
+									  });
 							
 									
 								});
@@ -266,15 +297,23 @@ angular.module('starter.controllers', [])
 		  $scope.modal.remove();
 	 }
 	 
-	 $scope.pwd_data = function()
+	 $scope.forgot_pwd = function()
 	 {
 		if($scope.frgtpwd.email == undefined)
 		{
-			alert("Please enter a valid email and proceed");
+			//alert("Please enter a valid email and proceed");
+			var alertPopup = $ionicPopup.alert({
+         title: '',
+         template: 'Please enter a valid email and proceed'
+      });
 		}
 		else
 		{
-			alert("Please check you mail for password");
+			//alert("Please check you mail for password");
+			var alertPopup = $ionicPopup.alert({
+         title: '',
+         template: 'Please check your mail for password'
+      });
 			
 			$scope.closeModal();
 		}
@@ -282,7 +321,7 @@ angular.module('starter.controllers', [])
 		 
 	 }
 	
-}).controller('HomeCtrl', function($scope, $rootScope, $ionicLoading, $http){
+}).controller('HomeCtrl', function($scope, $rootScope, $ionicLoading, $http ,$ionicPopup,$cordovaGeolocation){
 	
 	$rootScope.back_show = '0';
 	
@@ -318,6 +357,8 @@ angular.module('starter.controllers', [])
 							//	alert(JSON.stringify(response));
 							
 							$scope.order_details = response.orderlist;
+							
+							
 									
 							}, 
 						
@@ -329,14 +370,18 @@ angular.module('starter.controllers', [])
 								{
 									$ionicLoading.hide();
 									//alert("error="+data);
-									alert("Network error. Please try after some time");
+									//alert("Network error. Please try after some time");
+									var alertPopup = $ionicPopup.alert({
+										 title: 'Network Error',
+										 template: 'Please try after some time'
+									  });
 							
 									
 								});
 	
 	
 	
-}).controller('ProfileCtrl', function($scope,$rootScope,$ionicLoading,$http){
+}).controller('ProfileCtrl', function($scope,$rootScope,$ionicLoading,$http,$ionicPopup){
 	
 	$rootScope.back_show = '1';
 	
@@ -379,14 +424,20 @@ angular.module('starter.controllers', [])
 								{
 									$ionicLoading.hide();
 									//alert("error="+data);
-									alert("Network error. Please try after some time");
+									//alert("Network error. Please try after some time");
+									var alertPopup = $ionicPopup.alert({
+											 title: 'Network Error',
+											 template: 'Please try after some time'
+										  });
 							
 									
 								});
 		 
 	
 	
-}).controller('ViewOrderCtrl', function($scope, $ionicModal,  $ionicActionSheet,$rootScope,$ionicLoading,$http,$stateParams,$state){
+}).controller('ViewOrderCtrl', function($scope, $ionicModal,  $ionicActionSheet,$rootScope,$ionicLoading,$http,$stateParams,$state,$ionicPopup,$cordovaGeolocation,$window,$ionicSideMenuDelegate, $ionicHistory){
+	
+	$ionicSideMenuDelegate.canDragContent(true);
 	
 	$rootScope.back_show = '1';
 	
@@ -400,11 +451,28 @@ angular.module('starter.controllers', [])
 	
 	$scope.order_details = {};
 	
+	$scope.lastView = $ionicHistory.backView();
+	
+	$scope.lasturl= $scope.lastView.url;
+	
+		if($scope.lasturl == '/app/my_order')
+								{
+									$rootScope.del_status = 1;
+
+								}
+								
+								else
+								{
+									$rootScope.del_status = 0;
+								}
+	
 	$scope.order_data.deliverboy_id = window.localStorage.getItem('user_id');
 	
 	$scope.order_data.order_id = $stateParams.order_id;
 	
 	window.localStorage.setItem('order_id', $stateParams.order_id);
+	
+	
 	
 	$ionicLoading.show();
 			
@@ -430,11 +498,151 @@ angular.module('starter.controllers', [])
 							
 							$scope.total_amount = response.Ordersamount;
 							
-							
+							//alert("11");
 							
 							window.localStorage.setItem('cust_lat',$scope.order_cust_details.latitude);
 							window.localStorage.setItem('cust_long', $scope.order_cust_details.longitude);
 							
+							
+	 
+				
+									var watchOptions = {
+    timeout : 3000,
+    enableHighAccuracy: false // may cause errors if true
+  };
+	  
+	  
+	   var options = {maximumAge:100000, timeout:5000, enableHighAccuracy:true};
+							
+							$cordovaGeolocation.getCurrentPosition(options).then(function(position){
+	  
+ 
+    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	
+	//alert("222");
+	
+	//alert(position.coords.latitude);
+
+	//alert(position.coords.longitude);
+	
+	//alert("cl="+position.coords.latitude);
+	
+	//alert("clon="+position.coords.longitude);
+	
+	//alert("derl="+window.localStorage.getItem('cust_lat'));
+	
+	//alert("derl="+window.localStorage.getItem('cust_long'));
+	
+	var markers = [
+								{
+									"lat":position.coords.latitude,
+									"lng": position.coords.longitude,
+									
+
+								},
+								
+								{
+									"lat":window.localStorage.getItem('cust_lat'),
+									"lng":window.localStorage.getItem('cust_long'),
+									
+									
+								}
+								
+							];
+	
+    
+     var mapOptions = {
+       center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+      zoom: 11,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+	
+	
+	 
+	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	 var infoWindow = new google.maps.InfoWindow();
+        var lat_lng = new Array();
+        var latlngbounds = new google.maps.LatLngBounds();
+		
+		
+			var data = markers[0]
+            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+            lat_lng.push(myLatlng);
+            var marker = new google.maps.Marker({
+                position: myLatlng, 
+                map: map,
+                title: data.victim_address,
+				icon : 'https://maps.google.com/mapfiles/kml/shapes/man.png'
+            });
+            latlngbounds.extend(marker.position);
+            ;
+		 data = markers[1]
+             myLatlng = new google.maps.LatLng(data.lat, data.lng);
+            lat_lng.push(myLatlng);
+             marker1 = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: data.victim_address,
+				icon : 'https://maps.google.com/mapfiles/kml/shapes/motorcycling.png'
+            });
+            latlngbounds.extend(marker1.position);
+ 
+    //***********ROUTING****************//
+	
+	
+		 var path = new google.maps.MVCArray();
+ 
+        //Initialize the Direction Service
+        var service = new google.maps.DirectionsService();
+ 
+        //Set the Path Stroke Color
+        //var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7',strokeOpacity: 1.0, strokeWeight: 2 });
+		var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
+ 
+		service.route({
+                    origin: lat_lng[0],
+                    destination: lat_lng[1],
+                    travelMode: google.maps.DirectionsTravelMode.DRIVING
+                }, function (result, status) {
+					
+                    if (status == google.maps.DirectionsStatus.OK) {
+						 
+                        for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+                            path.push(result.routes[0].overview_path[i]);
+                        }
+                    }
+                });
+				
+				 //Loop and Draw Path Route between the Points on MAP
+				
+				 for (var i = 0; i < lat_lng.length; i++) {
+					 
+            if ((i + 1) < lat_lng.length) {
+                var src = lat_lng[i];
+                var des = lat_lng[i + 1];
+                path.push(src);
+				
+                poly.setPath(path);
+               
+            }
+        }
+  
+  }, function(error){
+	  alert("error loc");
+    console.log("Could not get location="+error);
+  });
+					
+						/* google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+		  
+		  alert("aa");
+ 
+				  var marker = new google.maps.Marker({
+					  map: $scope.map,
+					  animation: google.maps.Animation.DROP,
+					  position: latLng
+				  });      
+				 
+				});*/
 														
 							}, 
 						
@@ -446,8 +654,12 @@ angular.module('starter.controllers', [])
 								{
 									$ionicLoading.hide();
 									//alert("error="+data);
-									alert("Network error. Please try after some time");
-							
+									//alert("Network error. Please try after some time");
+									var alertPopup = $ionicPopup.alert({
+									 title: 'Network Error',
+									 template: 'Please try after some time'
+								  });
+														
 									
 								});
 	
@@ -528,6 +740,21 @@ angular.module('starter.controllers', [])
     return $scope.shownGroup === group;
   }
 	 
+	 $scope.view_items = function()
+	 {
+		 $ionicModal.fromTemplateUrl('templates/view_items.html', {
+						scope: $scope
+					  }).then(function(modal) {
+						  
+							
+							$scope.modal = modal;
+							$scope.modal.show();
+														
+					  });
+		 
+	 }
+	 
+	 
 	 
 	 $scope.order_deliver = function()
 	 {
@@ -562,7 +789,11 @@ angular.module('starter.controllers', [])
 	 {
 		 if(result == undefined)
 		 {
-			 alert("Select any of the option and proceed");
+			// alert("Select any of the option and proceed");
+			var alertPopup = $ionicPopup.alert({
+				 title: '',
+				 template: 'Select any of the option and proceed'
+			  });
 		 }
 		 else
 		 {
@@ -609,7 +840,11 @@ angular.module('starter.controllers', [])
 								{
 									$ionicLoading.hide();
 									//alert("error="+data);
-									alert("Network error. Please try after some time");
+									//alert("Network error. Please try after some time");
+									var alertPopup = $ionicPopup.alert({
+										 title: 'Network Error',
+										 template: 'Please try after some time'
+									  });
 							
 									
 								});
@@ -619,36 +854,50 @@ angular.module('starter.controllers', [])
 		 
 	 }
 	
-}).controller('MapCtrl', function($scope, $ionicLoading, $cordovaGeolocation){
+}).controller('MapCtrl', function($scope, $ionicLoading, $cordovaGeolocation ,$ionicPopup,$http,){
 
+  $scope.user_data = {};
   
-
-	angular.element(document).ready(function () {
-	  
-	  
-	  
-
-	  
-	  var watchOptions = {
-    timeout : 3000,
-    enableHighAccuracy: false // may cause errors if true
-  };
-	  
-	  
-	   var options = {maximumAge:100000, timeout:5000, enableHighAccuracy:true};
-  
- 
+	$scope.user_data.deliverboy_id = window.localStorage.getItem('user_id');
+	
+	//$scope.user_data.deliverboy_id = 5;
+	
+	
+	  $ionicLoading.show();
+			
+	$http({
+								url: server+'doGetDeliveryboyOrders',
+								method: "POST",
+								headers : {
+									
+									'Content-Type': 'application/json'
+									
+									
+								},
+								//timeout : 4500,
+								data: JSON.stringify($scope.user_data),
+							})
+							.success(function(response) {
+										
+								$ionicLoading.hide();
+								
+							
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
 	  
-
+ 
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	
 	//alert(position.coords.latitude);
-	
+
 	//alert(position.coords.longitude);
 	
-	//alert("l="+window.localStorage.getItem('cust_lat'));
-	//alert("lo="+window.localStorage.getItem('cust_long'));
+	//alert("cl="+position.coords.latitude);
+	
+	//alert("clon="+position.coords.longitude);
+	
+	//alert("derl="+window.localStorage.getItem('cust_lat'));
+	//alert("derl="+window.localStorage.getItem('cust_lat'));
+	
 	var markers = [
 								{
 									"lat":position.coords.latitude,
@@ -659,9 +908,9 @@ angular.module('starter.controllers', [])
 								
 								{
 									"lat":window.localStorage.getItem('cust_lat'),
-									"lng": window.localStorage.getItem('cust_long'),
+									"lng":window.localStorage.getItem('cust_long'),
 									
-
+									
 								}
 								
 							];
@@ -703,16 +952,18 @@ angular.module('starter.controllers', [])
             latlngbounds.extend(marker1.position);
  
     //***********ROUTING****************//
-	
+		
 	
 		 var path = new google.maps.MVCArray();
- 
+	
+	
         //Initialize the Direction Service
         var service = new google.maps.DirectionsService();
  
         //Set the Path Stroke Color
-        var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
- 
+        //var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
+		var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
+
 		service.route({
                     origin: lat_lng[0],
                     destination: lat_lng[1],
@@ -736,11 +987,45 @@ angular.module('starter.controllers', [])
         }
  
   }, function(error){
-    console.log("Could not get location");
+	  alert("error loc");
+    console.log("Could not get location="+error);
   });
+							
+									
+							}, 
+						
+							function(response) { // optional
+							
+								$ionicLoading.hide();  
+								  
+							}).error(function(data)
+								{
+									$ionicLoading.hide();
+									//alert("error="+data);
+									//alert("Network error. Please try after some time");
+									var alertPopup = $ionicPopup.alert({
+										 title: 'Network Error',
+										 template: 'Please try after some time'
+									  });
+							
+									
+								});
+
 	  
 	  
-	  google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+				
+									var watchOptions = {
+    timeout : 3000,
+    enableHighAccuracy: false // may cause errors if true
+  };
+	  
+	  
+	   var options = {maximumAge:100000, timeout:5000, enableHighAccuracy:true};
+  
+ 
+	  
+	  
+	/* google.maps.event.addListenerOnce($scope.map, 'idle', function(){
 		  
 		  alert("aa");
  
@@ -751,11 +1036,11 @@ angular.module('starter.controllers', [])
 				  });      
 				 
 				});
-	  	
+	  	*/
 
 	  
 	
-});
+
    
 
 /*  var watch = $cordovaGeolocation.watchPosition(watchOptions);
@@ -818,12 +1103,66 @@ angular.module('starter.controllers', [])
 		
 	}
 	
-}).controller('MyOrderCtrl', function($scope){
+}).controller('MyOrderCtrl', function($scope,$ionicLoading,$http,$state ,$ionicPopup){
+	
+	$scope.order_data = {};
+	
+	$scope.driver_data = {};
+	
+	$scope.driver_data.deliverboy_id = window.localStorage.getItem('user_id');
+	
+	$ionicLoading.show();
+	 
+	$http({
+								url: server+'doDeliveryboyOrderHistory',
+								method: "POST",
+								headers : {
+									
+									'Content-Type': 'application/json'
+									
+									
+								},
+								//timeout : 4500,
+								data: JSON.stringify($scope.driver_data),
+							})
+							.success(function(response) {
+										
+								$ionicLoading.hide();
+							
+								//alert("qqq="+JSON.stringify(response));	
+								
+								$scope.order_data	= response.trackinfo;	
+
+									
+									
+								//	$state.go('app.history_view');
+							}, 
+						
+							function(response) { // optional
+							
+								$ionicLoading.hide();  
+								  
+							}).error(function(data)
+								{
+									$ionicLoading.hide();
+									//alert("error="+data);
+									//alert("Network error. Please try after some time");
+									var alertPopup = $ionicPopup.alert({
+											 title: 'Network Error',
+											 template: 'Please try after some time'
+										  });
+							
+									
+								});
 
 
-}).controller('DeliverSucessCtrl' , function($scope,$stateParams, $ionicLoading, $http,$state){
+}).controller('DeliverSucessCtrl' , function($scope,$stateParams, $ionicLoading, $http,$state ,$ionicPopup, $ionicSideMenuDelegate){
+	
+	 
 
 $scope.deliver_data = {};
+
+
 
 $scope.deliver_data.deliverboy_id = window.localStorage.getItem('user_id');
 
@@ -865,8 +1204,12 @@ $scope.deliver_submit = function()
 							}).error(function(data)
 								{
 									$ionicLoading.hide();
-									//alert("error="+data);
-									alert("Network error. Please try after some time");
+									alert("error="+data);
+									//alert("Network error. Please try after some time");
+									var alertPopup = $ionicPopup.alert({
+									 title: 'Network Error',
+									 template: 'Please try after some time'
+								  });
 							
 									
 								});
@@ -875,5 +1218,67 @@ $scope.deliver_submit = function()
 	
 	
 }
+	
+}).controller('HistoryViewCtrl', function($scope, $ionicLoading,$http, $stateParams ,$ionicPopup){
+	
+	$scope.order_data = {};
+	
+	$scope.order_details = {};
+	
+	$scope.order_cust_details = {};
+	
+	$scope.total_amount = {};
+	
+	$scope.order_data.deliverboy_id = window.localStorage.getItem('user_id');
+	
+	$scope.order_data.order_id = $stateParams.order_id;
+	
+	
+	
+	$ionicLoading.show();
+	 
+	$http({
+								url: server+'doGetDeliveryboyOrderitems',
+								method: "POST",
+								headers : {
+									
+									'Content-Type': 'application/json'
+									
+									
+								},
+								//timeout : 4500,
+								data: JSON.stringify($scope.order_data),
+							})
+							.success(function(response) {
+										
+								$ionicLoading.hide();
+							
+									//alert(JSON.stringify(response));	
+									
+								$scope.order_cust_details = response.orderlist[0];
+							
+								$scope.order_details = response.orderlist;
+							
+								$scope.total_amount = response.Ordersamount;	
+									
+									
+							}, 
+						
+							function(response) { // optional
+							
+								$ionicLoading.hide();  
+								  
+							}).error(function(data)
+								{
+									$ionicLoading.hide();
+									//alert("error="+data);
+								//	alert("Network error. Please try after some time");
+								var alertPopup = $ionicPopup.alert({
+									 title: 'Network Error',
+									 template: 'Please try after some time'
+								  });
+							
+									
+								});
 	
 });
