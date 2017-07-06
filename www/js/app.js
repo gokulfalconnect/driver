@@ -291,6 +291,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       }
     }
   })
+
+   .state('app.coupons', {
+      cache: false,
+    url: '/coupons',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/coupons.html'
+      }
+    }
+  })
   
   .state('app.profile', {
 	   cache: false,

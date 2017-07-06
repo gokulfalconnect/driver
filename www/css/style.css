@@ -487,3 +487,40 @@ padding-bottom:55px;
 
 .order_list i {
   font-size: 20px !important; }
+
+/* COUPON PAGE START*/
+
+.cou_pro_details p{
+  margin : initial;
+  font-size : 12px;
+  margin-bottom: 5px;
+}
+
+.cou_pro_details h4{
+  margin : initial;
+  font-size : 15px;
+  font-weight: 500;
+  margin: 5px 0px;
+}
+
+.textwrapper{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coupon_btn{
+    height: 30px !important;
+    min-height: initial;
+    line-height: normal;
+}
+
+.cou_pro_apply{
+    margin: 5%;
+}
+
+.coupon_cards{
+  margin: 10px 0px !important;
+}
+
+/* COUPON PAGE END*/
