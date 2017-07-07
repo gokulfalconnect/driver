@@ -301,6 +301,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       }
     }
   })
+
+   
+  .state('app.feedback', {
+      cache: false,
+    url: '/feedback',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/feedback.html'
+      }
+    }
+  })
   
   .state('app.profile', {
 	   cache: false,

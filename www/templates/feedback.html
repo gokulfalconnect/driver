@@ -1,0 +1,64 @@
+<ion-view view-title="Feedback" >
+
+ <ion-content class="has-header" padding=true>
+  <div class="row">
+    <div class="col col-12">
+      <h4> 1. How would you rate the mobile app ?</h4>
+      <fieldset class="rating">
+          <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+          <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+          <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+          <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+          <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+          <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+          <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+          <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+          <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+          <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-12">
+      <h4> 2. How happy are you with your purchase?</h4>
+      <div id='wrapper'>
+        <div class='smiley-green floatleft'>
+          <div class='left-eye'></div>
+          <div class='right-eye'></div>
+          <div class='smile'></div>
+        </div>
+        <div class='smiley-red floatleft'>
+          <div class='left-eye'></div>
+          <div class='right-eye'></div>
+          <div class='smile'></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-12">
+      <h4> 3. How likely is it that you would recommend our restro to a friend or colleague?</h4>
+      <fieldset class="rating">
+          <input type="radio" id="star51" name="rating" value="5" /><label class = "full" for="star51" title="Awesome - 5 stars"></label>
+          <input type="radio" id="star4half1" name="rating" value="4 and a half" /><label class="half" for="star4half1" title="Pretty good - 4.5 stars"></label>
+          <input type="radio" id="star41" name="rating" value="4" /><label class = "full" for="star41" title="Pretty good - 4 stars"></label>
+          <input type="radio" id="star3half1" name="rating" value="3 and a half" /><label class="half" for="star3half1" title="Meh - 3.5 stars"></label>
+          <input type="radio" id="star31" name="rating" value="3" /><label class = "full" for="star31" title="Meh - 3 stars"></label>
+          <input type="radio" id="star2half1" name="rating" value="2 and a half" /><label class="half" for="star2half1" title="Kinda bad - 2.5 stars"></label>
+          <input type="radio" id="star21" name="rating" value="2" /><label class = "full" for="star21" title="Kinda bad - 2 stars"></label>
+          <input type="radio" id="star1half1" name="rating" value="1 and a half" /><label class="half" for="star1half1" title="Meh - 1.5 stars"></label>
+          <input type="radio" id="star11" name="rating" value="1" /><label class = "full" for="star11" title="Sucks big time - 1 star"></label>
+          <input type="radio" id="starhalf61" name="rating" value="half" /><label class="half" for="starhalf1" title="Sucks big time - 0.5 stars"></label>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-12">
+      <h4> 4. Do you have any other comments, questions, or concerns?</h4>
+      <textarea placeholder="This is an awesome comment box" rows="20" name="comment[text]" id="comment_text" cols="40" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"></textarea>
+    </div>
+  </div>
+</ion-content>
+</ion-view>

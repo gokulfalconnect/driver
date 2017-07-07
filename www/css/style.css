@@ -524,3 +524,233 @@ padding-bottom:55px;
 }
 
 /* COUPON PAGE END*/
+
+/*feedback page start*/
+  
+fieldset{
+  margin-left : 10% !important;
+}
+
+fieldset, label { margin: 0; padding: 0; }
+
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 10px;
+  font-size: 30px;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+
+
+#wrapper {
+  width: 100%;
+  margin: 30px 20%;
+  padding: 0px 20px;
+}
+.floatleft {
+  float: left;
+}
+[class^="smiley-"] {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.smiley-green {
+  background: #a9db7a;
+  border: 5px solid #92c563;
+  position: relative;
+}
+.smiley-green .left-eye {
+  width: 18%;
+  height: 18%;
+  background: #84b458;
+  position: relative;
+  top: 29%;
+  left: 22%;
+  border-radius: 50%;
+  float: left;
+}
+.smiley-green .right-eye {
+  width: 18%;
+  height: 18%;
+  border-radius: 50%;
+  position: relative;
+  background: #84b458;
+  top: 29%;
+  right: 22%;
+  float: right;
+}
+.smiley-green .smile {
+  position: absolute;
+  top :67%;
+  left: 16.5%;
+  width: 70%;
+  height: 20%;
+  overflow: hidden;
+}
+ .smiley-green .smile:after, .smiley-green .smile:before {
+  content: "";
+  position:absolute;
+  top: -50%;
+  left: 0%;
+  border-radius: 50%;
+  background: #84b458;
+  height: 100%;
+  width: 97%;
+ }
+ .smiley-green .smile:after {
+  background: #84b458;
+  height: 80%;
+  top: -40%;
+  left: 0%;
+}
+
+
+.smiley-yellow {
+  background: #eed16a;
+  border: 5px solid #dbae51;
+  position: relative;
+}
+.smiley-yellow .left-eye {
+  width: 18%;
+  height: 18%;
+  background: #dba652;
+  position: relative;
+  top: 29%;
+  left: 22%;
+  border-radius: 50%;
+  float: left;
+}
+.smiley-yellow .right-eye {
+  width: 18%;
+  height: 18%;
+  border-radius: 50%;
+  position: relative;
+  background: #dba652;
+  top: 29%;
+  right: 22%;
+  float: right;
+}
+.smiley-yellow .smile {
+  position: absolute;
+  top: 67%;
+  left: 19%;
+  width: 65%;
+  height: 14%;
+  background: #dba652;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.smiley-red {
+  background: #ee9295;
+  border: 5px solid #e27378;
+  position: relative;
+}
+.smiley-red .left-eye {
+  width: 18%;
+  height: 18%;
+  background: #d96065;
+  position: relative;
+  top: 29%;
+  left: 22%;
+  border-radius: 50%;
+  float: left;
+}
+.smiley-red .right-eye {
+  width: 18%;
+  height: 18%;
+  border-radius: 50%;
+  position: relative;
+  background: #d96065;
+  top: 29%;
+  right: 22%;
+  float: right;
+}
+.smiley-red .smile {
+  position: absolute;
+  top: 57%;
+  left: 16.5%;
+  width: 70%;
+  height: 20%;
+  overflow: hidden;
+}
+ .smiley-red .smile:after, .smiley-red .smile:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  border-radius: 50%;
+  background: #d96065;
+  height: 100%;
+  width: 97%;
+ }
+ .smiley-red .smile:after {
+  background: #d96065;
+  height: 80%;
+  top: 60%;
+  left: 0%;
+}
+
+
+textarea {
+  margin-top: 20px;
+  height: 100px;
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07);
+  border-color: -moz-use-text-color #FFFFFF #FFFFFF -moz-use-text-color;
+  border-image: none;
+  border-radius: 6px 6px 6px 6px;
+  border-style: none solid solid none;
+  border-width: medium 1px 1px medium;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+  color: #555555;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1em;
+  line-height: 1.4em;
+  padding: 5px 8px;
+  transition: background-color 0.2s ease 0s;
+}
+
+
+textarea:focus {
+    background: none repeat scroll 0 0 #FFFFFF;
+    outline-width: 0;
+}
+/*feedback page end*/
