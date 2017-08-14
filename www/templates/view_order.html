@@ -1,29 +1,34 @@
-<ion-view title="Order Details" hide-nav-bar="false">
+<ion-view title="Order Details" cache-view="false">
   <ion-content padding="false" class="has-header">
     <div class="row no_padding">
-      <div class="col col-20 left_pane no_padding" style="position:relative;">
+    <!--  <div class="col col-20 left_pane no_padding" style="position:relative;">
         <p class="left_pane_info">1</p>
         <div class="left_pane_bottom" ui-sref="app.map">
           <i class="icon ion-location"></i>
           <h6 class="info_heading" >NAV</h6>
         </div>
-      </div>
+      </div> -->
       <div class="col info_col">
 
         <div class="row no_padding info_content">
-          <div class="col no_padding">
+          <div class="col col-80 no_padding">
             <h5 class="info_heading">DIRECTIONS</h5>
             <p>
               {{order_cust_details.address}}
             </p>
           </div>
+		  <div class="col col-20">
+		<!-- <i class="icon ion-location ion_icons_header" ui-sref="app.map"> </i> -->
+		<i class="icon ion-location ion_icons_header" ng-click="show_map()"> </i>
+		
+		  </div>
         </div>
-
+ 
         <div class="row no_padding info_content" ng-click="view_items()">
           <div class="col no_padding">
             <h5 class="info_heading">View Order Items</h5>
-            <p>
-              
+           
+		
             </p>
           </div>
         </div>
@@ -54,34 +59,16 @@
 
       </div>
     </div>
-    <div  id="map" data-tap-disabled="true" style="display:block;position:relative;width:100%;height:100%;">
+    <div  id="map_canvas"  style="width:{{width}}px;height:52%;">
 	
-   <!--   <creator-map-component options="{}" marker="true" location="chennai" zoom="12" style="display:block;position:relative;width:100%;height:200px;">
-        <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" options="map.options">
-          <ui-gmap-marker coords="map.marker.coords" idkey="map.marker.id" options="map.marker.options"></ui-gmap-marker>
-        </ui-gmap-google-map>
-      </creator-map-component>
-      <div class="btn_container">
-        <div class="row">
-          <div>
-            <button class="button button-block button-balanced">ORDER PLACED &nbsp; &nbsp;
-              <i class="icon ion-arrow-right-c"></i>
-            </button>
-          </div>
-
-          <div>
-            <button class="button button-block button-dark">UNDELIVERED</button>
-          </div>
-        </div>
-      </div>-->
+   
     </div>
   </ion-content>
-</ion-view>
-<ion-footer-bar align-title="left" class="item-bg-color" >
+  <ion-footer-bar align-title="left" class="item-bg-color" >
 <div class="row" ng-if="del_status=='0'">
   
   <div class="col col-50" align="center" ui-sref="app.deliver_sucess">
-    <span  ui-sref="app.food_menu" >Order Delivered <i class="icon ion-arrow-right-c"></i></span>
+    <span  ui-sref="app.food_menu" >Order Delivered </i></span>
   </div>
 
   <div class="col col-50 " align="center" ng-click="order_not_deliver()">
@@ -97,3 +84,4 @@
  
 </div>
 </ion-footer-bar>
+</ion-view>

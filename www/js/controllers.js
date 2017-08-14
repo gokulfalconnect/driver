@@ -19,10 +19,22 @@ angular.module('starter.controllers', [])
 
     $scope.goBack = function()
 	{
+		
 		$ionicHistory.goBack();
 		
 	}
+	
 
+  $scope.userdata = {};
+	
+	  $scope.menu_click = function()
+  {
+	   
+  $scope.userdata.name = window.localStorage.getItem('name');
+  $scope.userdata.phone = window.localStorage.getItem('phone');
+  //$scope.userdata.image = window.localStorage.getItem('user_image');
+  
+  }
 
 	$scope.logout = function()
 	{
@@ -198,9 +210,9 @@ angular.module('starter.controllers', [])
 			// alert("app="+ $scope.logindata.app_id);
 			 
 			//alert("dev="+  $scope.logindata.device_type);
-		$scope.logindata.app_id  = 'KmP9qeRMCp8Fuhsuns4XEH509Fytg8iHDOgvC2BAUKkrbhJhyFBk4unAdFGuPo8HMl9Evl5VYeATFcK5aNBuSX869AzY85uRmJwSg78a3O22w9zfTlLofTWzVmoNFqUl4a';
+	$scope.logindata.app_id  = 'KmP9qeRMCp8Fuhsuns4XEH509Fytg8iHDOgvC2BAUKkrbhJhyFBk4unAdFGuPo8HMl9Evl5VYeATFcK5aNBuSX869AzY85uRmJwSg78a3O22w9zfTlLofTWzVmoNFqUl4a';
 			
-			$scope.logindata.device_type = 'Android';
+		$scope.logindata.device_type = 'Android';
 				
 			  $ionicLoading.show();
 			
@@ -240,7 +252,9 @@ angular.module('starter.controllers', [])
 									
 									window.localStorage.setItem('user_id', $scope.driver_data[0].id);
 									
-									window.localStorage.setItem('name', $scope.driver_data[0].email);
+									window.localStorage.setItem('name', $scope.driver_data[0].name);
+									
+									window.localStorage.setItem('phone', $scope.driver_data[0].phone);
 									
 									//window.localStorage.setItem('phone', $scope.driver_data[0].phone);
 									
@@ -322,6 +336,8 @@ angular.module('starter.controllers', [])
 	 }
 	
 }).controller('HomeCtrl', function($scope, $rootScope, $ionicLoading, $http ,$ionicPopup,$cordovaGeolocation){
+	
+	$scope.heading = "Order Details";
 	
 	$rootScope.back_show = '0';
 	
@@ -435,11 +451,21 @@ angular.module('starter.controllers', [])
 		 
 	
 	
-}).controller('ViewOrderCtrl', function($scope, $ionicModal,  $ionicActionSheet,$rootScope,$ionicLoading,$http,$stateParams,$state,$ionicPopup,$cordovaGeolocation,$window,$ionicSideMenuDelegate, $ionicHistory){
+}).controller('ViewOrderCtrl', function($scope, $ionicModal,  $ionicActionSheet,$rootScope,$ionicLoading,$http,$stateParams,$state,$ionicPopup,$cordovaGeolocation,$window,$ionicSideMenuDelegate, $ionicHistory,$ionicNavBarDelegate){
+	
+	$scope.heading = "Order Details";
+	
+	$scope.width=window.screen.width;
+	
+	$ionicNavBarDelegate.showBar(true);
+	
+	
+	$scope.result = 'Customer Not Available';
 	
 	$ionicSideMenuDelegate.canDragContent(true);
 	
 	$rootScope.back_show = '1';
+	
 	
 	$scope.delivery_status = {};
 	
@@ -451,9 +477,12 @@ angular.module('starter.controllers', [])
 	
 	$scope.order_details = {};
 	
+	
+	
 	$scope.lastView = $ionicHistory.backView();
 	
 	$scope.lasturl= $scope.lastView.url;
+	
 	
 		if($scope.lasturl == '/app/my_order')
 								{
@@ -465,6 +494,8 @@ angular.module('starter.controllers', [])
 								{
 									$rootScope.del_status = 0;
 								}
+								
+								
 	
 	$scope.order_data.deliverboy_id = window.localStorage.getItem('user_id');
 	
@@ -492,6 +523,8 @@ angular.module('starter.controllers', [])
 										
 								$ionicLoading.hide();
 								
+								
+								
 							$scope.order_cust_details = response.orderlist[0];
 							
 							$scope.order_details = response.orderlist;
@@ -500,21 +533,19 @@ angular.module('starter.controllers', [])
 							
 							//alert("11");
 							
+							//alert("l="+$scope.order_cust_details.latitude);
+							//alert("lo="+$scope.order_cust_details.longitude);
+							
 							window.localStorage.setItem('cust_lat',$scope.order_cust_details.latitude);
 							window.localStorage.setItem('cust_long', $scope.order_cust_details.longitude);
 							
 							
-	 
-				
-									var watchOptions = {
-    timeout : 3000,
-    enableHighAccuracy: false // may cause errors if true
-  };
+	
 	  
 	  
-	   var options = {maximumAge:100000, timeout:5000, enableHighAccuracy:true};
+	   var options = {maximumAge:100000, timeout:50000, enableHighAccuracy:true};
 							
-							$cordovaGeolocation.getCurrentPosition(options).then(function(position){
+						$cordovaGeolocation.getCurrentPosition(options).then(function(position){
 	  
  
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -533,17 +564,27 @@ angular.module('starter.controllers', [])
 	
 	//alert("derl="+window.localStorage.getItem('cust_long'));
 	
+	$scope.order_cust_details.curr_lat = position.coords.latitude;
+	
+	$scope.order_cust_details.curr_long = position.coords.longitude;
+	
 	var markers = [
 								{
-									"lat":position.coords.latitude,
-									"lng": position.coords.longitude,
+									//"lat":position.coords.latitude,
+									//"lng": position.coords.longitude,
+									
+									"lat":13.0012,
+									"lng": 80.2565,
 									
 
 								},
 								
 								{
-									"lat":window.localStorage.getItem('cust_lat'),
-									"lng":window.localStorage.getItem('cust_long'),
+									//"lat":window.localStorage.getItem('cust_lat'),
+									//"lng":window.localStorage.getItem('cust_long'),
+									
+									"lat":12.9760,
+									"lng":80.2212,
 									
 									
 								}
@@ -553,13 +594,17 @@ angular.module('starter.controllers', [])
     
      var mapOptions = {
        center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-      zoom: 11,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      zoom:15,
+    
     };
 	
 	
 	 
-	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+	
+	 
+	
+	
 	 var infoWindow = new google.maps.InfoWindow();
         var lat_lng = new Array();
         var latlngbounds = new google.maps.LatLngBounds();
@@ -567,25 +612,33 @@ angular.module('starter.controllers', [])
 		
 			var data = markers[0]
             var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+			
+			
             lat_lng.push(myLatlng);
             var marker = new google.maps.Marker({
                 position: myLatlng, 
                 map: map,
-                title: data.victim_address,
-				icon : 'https://maps.google.com/mapfiles/kml/shapes/man.png'
+               
+				icon : 'http://i.imgur.com/fDUI8bZ.png'
             });
             latlngbounds.extend(marker.position);
             ;
-		 data = markers[1]
+		  data = markers[1]
              myLatlng = new google.maps.LatLng(data.lat, data.lng);
+			 
+			
             lat_lng.push(myLatlng);
              marker1 = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
-                title: data.victim_address,
-				icon : 'https://maps.google.com/mapfiles/kml/shapes/motorcycling.png'
+               
+				icon : 'https://maps.google.com/mapfiles/kml/paddle/purple-square.png'
             });
             latlngbounds.extend(marker1.position);
+
+			//addYourLocationButton($scope.map, marker)
+			
+			addYourLocationButton(map, markers);
  
     //***********ROUTING****************//
 	
@@ -598,7 +651,7 @@ angular.module('starter.controllers', [])
         //Set the Path Stroke Color
         //var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7',strokeOpacity: 1.0, strokeWeight: 2 });
 		var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
- 
+	
 		service.route({
                     origin: lat_lng[0],
                     destination: lat_lng[1],
@@ -606,6 +659,7 @@ angular.module('starter.controllers', [])
                 }, function (result, status) {
 					
                     if (status == google.maps.DirectionsStatus.OK) {
+						
 						 
                         for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
                             path.push(result.routes[0].overview_path[i]);
@@ -626,11 +680,95 @@ angular.module('starter.controllers', [])
                
             }
         }
-  
+ 
   }, function(error){
-	  alert("error loc");
-    console.log("Could not get location="+error);
+	  //alert("error loc");
+    console.log("Could not get location="+JSON.stringify(error));
   });
+  
+  
+	
+				  function addYourLocationButton(map, marker) 
+{
+	
+	var controlDiv = document.createElement('div');
+	
+	var firstChild = document.createElement('button');
+	firstChild.style.backgroundColor = '#fff';
+	firstChild.style.border = 'none';
+	firstChild.style.outline = 'none';
+	firstChild.style.width = '28px';
+	firstChild.style.height = '28px';
+	firstChild.style.borderRadius = '2px';
+	firstChild.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
+	firstChild.style.cursor = 'pointer';
+	firstChild.style.marginRight = '10px';
+	firstChild.style.padding = '0px';
+	firstChild.title = 'Your Location';
+	controlDiv.appendChild(firstChild);
+	
+	/*var secondChild = document.createElement('div');
+	
+	secondChild.style.margin = '5px';
+	secondChild.style.width = '18px';
+	secondChild.style.height = '18px';
+	secondChild.style.backgroundImage = 'url(img/mylocation.png)';
+	secondChild.style.backgroundSize = '180px 18px';
+	secondChild.style.backgroundPosition = '0px 0px';
+	secondChild.style.backgroundRepeat = 'no-repeat';
+	secondChild.id = 'you_location_img';
+	firstChild.appendChild(secondChild);*/
+	
+	var secondChild = document.createElement("IMG");
+	secondChild.setAttribute("src", "img/geo.png");
+	secondChild.setAttribute("width", "18px");
+	secondChild.setAttribute("height", "18px");
+	secondChild.setAttribute("backgroundSize", '180px 18px');
+	secondChild.setAttribute("backgroundPosition", '0px 0px');
+	secondChild.setAttribute("backgroundRepeat", "no-repeat");
+	secondChild.id = 'you_location_img';
+	firstChild.appendChild(secondChild);
+	
+	google.maps.event.addListener(map, 'center_changed', function () {
+        secondChild.style['background-position'] = '0 0';
+    });
+	
+	 firstChild.addEventListener('click', function () {
+		 
+        var imgX = 0,
+            animationInterval = setInterval(function () {
+                imgX = -imgX - 18 ;
+                secondChild.setAttribute['background-position'] = imgX+'px 0';
+            }, 500);
+
+        if(navigator.geolocation) {
+			
+            navigator.geolocation.getCurrentPosition(function(position) {
+				
+                var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                
+				map.setCenter(latlng);
+				//marker.setPosition(latLng);
+				//marker.setPosition(latlng);
+				//map.panTo(latlng);
+                clearInterval(animationInterval);
+				
+                secondChild.setAttribute['background-position'] = '-144px 0';
+            });
+        } else {
+            clearInterval(animationInterval);
+            secondChild.style['background-position'] = '0 0';
+        }
+		
+	
+		
+    });
+
+    controlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+		
+}
+									
 					
 						/* google.maps.event.addListenerOnce($scope.map, 'idle', function(){
 		  
@@ -662,7 +800,27 @@ angular.module('starter.controllers', [])
 														
 									
 								});
-	
+								
+					$scope.show_map = function()
+					{
+									
+					var lat = 12.9760;
+					
+					var long = 80.2212;
+						
+				//	var lat = window.localStorage.getItem('cust_lat');
+						
+				//	var long = window.localStorage.getItem('cust_long');
+					
+					//alert("la="+window.localStorage.getItem('cust_lat'));
+					
+					//alert("lo="+window.localStorage.getItem('cust_long'));
+					
+						//launchnavigator.navigate([lat, long]);
+							
+							window.open("google.navigation:q="+lat+","+long+"&mode=d" , '_system');
+							
+					}					
 	
 	
 	$scope.modal_direction = function()
@@ -854,34 +1012,22 @@ angular.module('starter.controllers', [])
 		 
 	 }
 	
+	
+	
 }).controller('MapCtrl', function($scope, $ionicLoading, $cordovaGeolocation ,$ionicPopup,$http,){
-
-  $scope.user_data = {};
+	
+	
+	$ionicLoading.show();
+	
+	var watchOptions = {
+    timeout : 30000,
+    enableHighAccuracy: false // may cause errors if true
+  };
+	  
+	  
+	   var options = {maximumAge:100000, timeout:50000, enableHighAccuracy:true};
   
-	$scope.user_data.deliverboy_id = window.localStorage.getItem('user_id');
-	
-	//$scope.user_data.deliverboy_id = 5;
-	
-	
-	  $ionicLoading.show();
-			
-	$http({
-								url: server+'doGetDeliveryboyOrders',
-								method: "POST",
-								headers : {
-									
-									'Content-Type': 'application/json'
-									
-									
-								},
-								//timeout : 4500,
-								data: JSON.stringify($scope.user_data),
-							})
-							.success(function(response) {
-										
-								$ionicLoading.hide();
-								
-							
+ 
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
 	  
  
@@ -895,22 +1041,29 @@ angular.module('starter.controllers', [])
 	
 	//alert("clon="+position.coords.longitude);
 	
-	//alert("derl="+window.localStorage.getItem('cust_lat'));
-	//alert("derl="+window.localStorage.getItem('cust_lat'));
+	//alert("derl="+window.localStorage.getItem('dr_lat'));
+	
+	//alert("derl="+window.localStorage.getItem('dr_long'));
 	
 	var markers = [
 								{
-									"lat":position.coords.latitude,
-									"lng": position.coords.longitude,
+									//"lat":position.coords.latitude,
+									//"lng": position.coords.longitude,
+									
+									"lat":13.0012,
+									"lng": 80.2565,
 									
 
 								},
 								
 								{
-									"lat":window.localStorage.getItem('cust_lat'),
-									"lng":window.localStorage.getItem('cust_long'),
+									//"lat":window.localStorage.getItem('dr_lat'),
+									//"lng":window.localStorage.getItem('dr_long'),
 									
+									"lat":12.9760,
+									"lng":80.2212,
 									
+
 								}
 								
 							];
@@ -923,7 +1076,7 @@ angular.module('starter.controllers', [])
     };
 	
 	 
-	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	var map = new google.maps.Map(document.getElementById("map1"), mapOptions);
 	 var infoWindow = new google.maps.InfoWindow();
         var lat_lng = new Array();
         var latlngbounds = new google.maps.LatLngBounds();
@@ -940,10 +1093,10 @@ angular.module('starter.controllers', [])
             });
             latlngbounds.extend(marker.position);
             ;
-		 data = markers[1]
-             myLatlng = new google.maps.LatLng(data.lat, data.lng);
+		var data = markers[1]
+           var myLatlng = new google.maps.LatLng(data.lat, data.lng);
             lat_lng.push(myLatlng);
-             marker1 = new google.maps.Marker({
+             var marker1 = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
                 title: data.victim_address,
@@ -952,18 +1105,16 @@ angular.module('starter.controllers', [])
             latlngbounds.extend(marker1.position);
  
     //***********ROUTING****************//
-		
+	
 	
 		 var path = new google.maps.MVCArray();
-	
-	
+ 
         //Initialize the Direction Service
         var service = new google.maps.DirectionsService();
  
         //Set the Path Stroke Color
-        //var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
-		var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
-
+        var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
+ 
 		service.route({
                     origin: lat_lng[0],
                     destination: lat_lng[1],
@@ -977,89 +1128,20 @@ angular.module('starter.controllers', [])
                 });
 				
 				 for (var i = 0; i < lat_lng.length; i++) {
+					 
             if ((i + 1) < lat_lng.length) {
                 var src = lat_lng[i];
                 var des = lat_lng[i + 1];
                 path.push(src);
+				
                 poly.setPath(path);
                 
             }
         }
- 
+ $ionicLoading.hide();
   }, function(error){
-	  alert("error loc");
     console.log("Could not get location="+error);
   });
-							
-									
-							}, 
-						
-							function(response) { // optional
-							
-								$ionicLoading.hide();  
-								  
-							}).error(function(data)
-								{
-									$ionicLoading.hide();
-									//alert("error="+data);
-									//alert("Network error. Please try after some time");
-									var alertPopup = $ionicPopup.alert({
-										 title: 'Network Error',
-										 template: 'Please try after some time'
-									  });
-							
-									
-								});
-
-	  
-	  
-				
-									var watchOptions = {
-    timeout : 3000,
-    enableHighAccuracy: false // may cause errors if true
-  };
-	  
-	  
-	   var options = {maximumAge:100000, timeout:5000, enableHighAccuracy:true};
-  
- 
-	  
-	  
-	/* google.maps.event.addListenerOnce($scope.map, 'idle', function(){
-		  
-		  alert("aa");
- 
-				  var marker = new google.maps.Marker({
-					  map: $scope.map,
-					  animation: google.maps.Animation.DROP,
-					  position: latLng
-				  });      
-				 
-				});
-	  	*/
-
-	  
-	
-
-   
-
-/*  var watch = $cordovaGeolocation.watchPosition(watchOptions);
-  watch.then(
-    null,
-    function(err) {
-		
-      alert("error="+err);
-    },
-    function(position) {
-		alert("watch options="+position.coords.latitude);
-		alert("long="+position.coords.longitude);
-      var lat  = position.coords.latitude;
-      var long = position.coords.longitude;
-  });*/
-  
- 
-	  
-	 
 	  
 	  
   
@@ -1156,9 +1238,9 @@ angular.module('starter.controllers', [])
 								});
 
 
-}).controller('DeliverSucessCtrl' , function($scope,$stateParams, $ionicLoading, $http,$state ,$ionicPopup, $ionicSideMenuDelegate){
+}).controller('DeliverSucessCtrl' , function($scope,$stateParams, $ionicLoading, $http,$state ,$ionicPopup, $ionicSideMenuDelegate,$ionicHistory,$ionicNavBarDelegate){
 	
-	 
+	 //$ionicNavBarDelegate.showBar(false);
 
 $scope.deliver_data = {};
 
@@ -1217,6 +1299,12 @@ $scope.deliver_submit = function()
 	
 	
 	
+}
+
+$scope.goBack = function()
+{
+	
+	$ionicHistory.goBack();
 }
 	
 }).controller('HistoryViewCtrl', function($scope, $ionicLoading,$http, $stateParams ,$ionicPopup){

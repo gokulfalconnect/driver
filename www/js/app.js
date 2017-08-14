@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaGeolocation,$ionicLoading,$http ,$ionicPopup) {
+.run(function($ionicPlatform, $cordovaGeolocation,$ionicLoading,$http ,$ionicPopup,$state) {
   $ionicPlatform.ready(function() {
 	  
 	  
@@ -21,7 +21,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 	 if(deviceType=='Android')
 	 {
 		 
-		
+		/*One signal start*/	
+	
+	 var notificationOpenedCallback = function(jsonData) {
+  // alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+  };
+  
+  window.plugins.OneSignal
+    .startInit("5a689aea-d1f5-40a5-a562-2cb0a5295204")
+    .handleNotificationOpened(notificationOpenedCallback)
+    .endInit();	 
+	
+	//window.plugins.OneSignal.enableInAppAlertNotification(true);
+	
+	/*one signal end*/
 		
 		
 		var pushNotification = window.plugins.pushNotification; 
@@ -37,9 +50,47 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 	 }
 	else
 	{
-		//alert("else");
+	/*	 var pushNotification = window.plugins.pushNotification;
+                       pushNotification.register(tokenHandler, errorHandler, {
+                                                 "badge": "true",
+                                                 "sound": "true",
+                                                 "alert": "true",
+                                                 "ecb": "window.onNotificationAPN"
+                                                 });
+                       
+                       
+                       function tokenHandler(result)
+                       {
+                       // alert('device token: ='+ result);
+                       window.localStorage.setItem('app_id',result);
+                       
+                       }
+                       function errorHandler(error)
+                       {
+                       
+                       }*/
 	 	
 	}
+	 window.onNotificationAPN = function(result) {
+                       
+                       if (result.alert) {A
+                       // navigator.notification.alert(result.alert);
+                       navigator.notification.alert(result.alert,alertDismissed,'Notification','OK');
+                       function alertDismissed()
+                       {
+                       
+                       }
+					   $state.go('app.view_order',{'order_id':parseInt(result.payload.title)});
+                       }
+                       if (result.sound) {
+                       var snd = new Media(result.sound);
+                       snd.play();
+                       }
+                       if (result.badge) {
+                       pushNotification.setApplicationIconBadgeNumber(successHandler, result.badge);
+                       }
+                       
+                       }
 	
 
 	onNotificationGCM = function(result) {
@@ -64,15 +115,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 			
 			
 			var myMedia = new Media('/android_asset/www/music/beep-2.mp3');
-				myMedia.play();
+				//myMedia.play();
 				
-				//alert(result.message);
+				//alert(JSON.stringify(result.payload.title));
 				
 				var alertPopup = $ionicPopup.alert({
 						 title: 'DelBoy',
 						 template: result.message
 					  });
-				$state.go('app.view_order',{'order_id':result.payload.order_id});
+				$state.go('app.view_order',{'order_id':parseInt(result.payload.title)});
+			//$state.go('app.home');
            
            break;
 		   
@@ -105,7 +157,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 	
 	
 	var watchOptions = {
-    timeout : 3000,
+    timeout : 30000,
     enableHighAccuracy: true // may cause errors if true
   };
 
@@ -114,7 +166,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
     null,
     function(err) {
 		
-      alert("error="+err);
+      //alert("error="+err);
+	   //var watch = $cordovaGeolocation.watchPosition(watchOptions);
     },
     function(position) {
 		//alert("pos");
@@ -288,27 +341,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
         templateUrl: 'templates/history_view.html',
 		
         controller: 'HistoryViewCtrl'
-      }
-    }
-  })
-
-   .state('app.coupons', {
-      cache: false,
-    url: '/coupons',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/coupons.html'
-      }
-    }
-  })
-
-   
-  .state('app.feedback', {
-      cache: false,
-    url: '/feedback',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/feedback.html'
       }
     }
   })
